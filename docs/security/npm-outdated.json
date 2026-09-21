@@ -1,0 +1,37 @@
+{
+  "@playwright/test": {
+    "current": "1.55.1",
+    "wanted": "1.55.1",
+    "latest": "1.63.0"
+  },
+  "@types/node": {
+    "current": "22.20.2",
+    "wanted": "22.20.2",
+    "latest": "26.5.1"
+  },
+  "eslint": {
+    "current": "9.39.1",
+    "wanted": "9.39.1",
+    "latest": "10.10.0"
+  },
+  "lucide-react": {
+    "current": "1.43.0",
+    "wanted": "1.43.0",
+    "latest": "1.46.0"
+  },
+  "prettier": {
+    "current": "3.6.2",
+    "wanted": "3.6.2",
+    "latest": "3.9.6"
+  },
+  "typescript": {
+    "current": "6.0.3",
+    "wanted": "6.0.3",
+    "latest": "7.0.2"
+  },
+  "zod": {
+    "current": "4.1.12",
+    "wanted": "4.1.12",
+    "latest": "4.6.5"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "completeness": "partial",
+  "deferred": [
+    {
+      "candidate": {
+        "paths": ["app/api/admin/logout/route.ts", "lib/server/admin-session.ts"],
+        "severity": "low",
+        "summary": "Nonempty cookie triggers logout audit even if signature verification silently returns; direct HTTP caller can supply canonical Origin. No access bypass.",
+        "title": "Invalid admin cookie can produce a misleading logout audit"
+      },
+      "candidateId": "phase2-logout-audit-forgery",
+      "id": "phase2-logout-audit-forgery",
+      "reason": "Independent baseline candidate received; parent validation and safe correction pending."
+    }
+  ],
+  "documentType": "codex-security.coverage",
+  "excludePaths": [],
+  "explicitExclusions": [
+    {
+      "pattern": "Application outside targeted phase2 risks",
+      "reason": "User prohibits renewed general audit."
+    },
+    {
+      "pattern": "Remote Supabase, Stripe, Resend and hosting runtime",
+      "reason": "No authorized configured staging execution; tests prepared only."
+    },
+    {
+      "pattern": "Guard actual interception and GitHub merge rules",
+      "reason": "External login required; Git metadata/rules unavailable."
+    },
+    {
+      "pattern": "node_modules/**",
+      "reason": "Dependencies audited separately; source out of targeted review."
+    },
+    {
+      "pattern": ".next/**",
+      "reason": "Generated build tested; not source audited."
+    }
+  ],
+  "includePaths": ["."],
+  "inventoryStrategy": "directory",
+  "mode": "repository",
+  "openQuestions": [
+    {
+      "question": "Will all instances use schema6 and pass actual staging RLS/Auth/Storage/session replay tests?"
+    },
+    {
+      "question": "Will authenticated Guard hooks intercept Codex exec_command and deny benign sensitive-action simulations?"
+    },
+    {
+      "question": "Will Stripe test and cron interleavings meet the prepared staging invariants?"
+    },
+    {
+      "question": "Will GitHub require Security gate/CodeQL without inappropriate bypass?"
+    },
+    {
+      "question": "Will the MCP host load and preserve the pinned local configuration after updates?"
+    }
+  ],
+  "scanId": "674fda4d-30b9-4709-9175-2cdd2675c270",
+  "schemaVersion": "1.0",
+  "surfaces": [
+    {
+      "disposition": "no_issue_found",
+      "id": "surface_admin-cookie-to-protected-apis-and-pages",
+      "label": "Admin cookie to protected APIs and pages",
+      "notes": "Signed credential-bound cookie plus uncached active SQL session, role/expiry/MFA required. All protected admin Route Handler methods reject copied cookie after actual logout. All13 protected pages call shared guard before reads. DB failures deny access and prevent falsely confirmed logout. Local handlers/crypto/SQL exercised.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "rejected",
+      "id": "surface_corrected-candidate-phase2-logout-audit-forgery",
+      "label": "Corrected candidate phase2-logout-audit-forgery",
+      "notes": "Real transient P3 introduced during implementation, fixed before finalization. RPC now reports actual unrevoked-to-revoked transition; invalid cookie emits no audit, repeated logout one audit. Independent rereview and passing tests confirm resolution. Rejected as reportable in final source, not a false positive.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "surface_session-sql-privileges",
+      "label": "Session SQL privileges",
+      "notes": "RLS/revokes deny anon/authenticated CRUD and three privileged RPCs. Fixed search_path, hash-only registry, MFA, expiry, rotation and revocation across connections tested.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "surface_existing-stock-sql-and-new-native-concurrency-harness",
+      "label": "Existing stock SQL and new native concurrency harness",
+      "notes": "Scoped source review of reservation/payment/refund and immediate checkout/webhook/cron callers; actual lock waits verified for last unit, same attempt, duplicates and session revocation. No business logic change.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "no_issue_found",
+      "id": "surface_read-only-comparison-and-mandatory-ci",
+      "label": "Read-only comparison and mandatory CI",
+      "notes": "Comparator rejects RLS drift, missing RPC, malformed input; no network/migration. CI aggregate requires success of quality/postgres/browser including canceled/skipped handling. READMEv6 and archive labeling corrected; hosted enforcement unverified.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "needs_follow_up",
+      "id": "surface_remote-providers-and-hosting",
+      "label": "Remote providers and hosting",
+      "notes": "No remote Supabase migration, Auth/RLS/Storage, Stripe test or Resend validation. Exact20 initial config messages documented; only2 empty local technical secrets generated.18blocksremain. Staging checklist SB01-SB09/ST01-ST15 prepared.",
+      "receiptRefs": []
+    },
+    {
+      "disposition": "needs_follow_up",
+      "id": "surface_mcp-pinning-and-guard",
+      "label": "MCP pinning and Guard",
+      "notes": "ChromeMCP exact1.9.0 official entry locallyinstalled ignore-scripts, matched SRI and version; no launch-time npx. AgentShield4files2info. Guardtoolreturnedmissingtoken; stopped at externalauthrequirement, no interception proof.",
+      "receiptRefs": []
+    }
+  ]
+}

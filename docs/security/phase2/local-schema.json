@@ -1,0 +1,2186 @@
+{
+  "table:lots": {
+    "rls": true,
+    "force_rls": false
+  },
+  "table:orders": {
+    "rls": true,
+    "force_rls": false
+  },
+  "column:lots.id": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "schema_version": 6,
+  "table:products": {
+    "rls": true,
+    "force_rls": false
+  },
+  "table:profiles": {
+    "rls": true,
+    "force_rls": false
+  },
+  "table:shipments": {
+    "rls": true,
+    "force_rls": false
+  },
+  "column:lots.code": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "table:audit_logs": {
+    "rls": true,
+    "force_rls": false
+  },
+  "column:lots.grade": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:lots.notes": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "table:order_items": {
+    "rls": true,
+    "force_rls": false
+  },
+  "table:submissions": {
+    "rls": true,
+    "force_rls": false
+  },
+  "column:lots.events": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "8b4b2df56ad0773943ef9179742da01b"
+  },
+  "column:lots.region": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:lots.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.id": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:profiles.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "bucket:avana-public": {
+    "public": true,
+    "file_size_limit": 8000000,
+    "allowed_mime_types": ["image/jpeg", "image/png", "image/webp", "image/avif"]
+  },
+  "column:lots.country": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:lots.species": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.email": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.phone": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:shipments.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "function:is_admin()": {
+    "settings": ["search_path=public"],
+    "anon_execute": true,
+    "definition_hash": "2b57c8e96e7293babfc477b1da4ca3b9",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": true
+  },
+  "table:notifications": {
+    "rls": true,
+    "force_rls": false
+  },
+  "bucket:avana-private": {
+    "public": false,
+    "file_size_limit": 8000000,
+    "allowed_mime_types": ["image/jpeg", "image/png", "image/webp", "image/avif", "application/pdf"]
+  },
+  "column:audit_logs.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "column:orders.number": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "60c863f3daa06bed0edb3af70f2fce1d"
+  },
+  "column:products.name": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.slug": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.uses": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "8b4b2df56ad0773943ef9179742da01b"
+  },
+  "column:profiles.role": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "694a358ecca4778ce2401a726514e544"
+  },
+  "index:lots.lots_pkey": "5feb3374eeb662fef221884e017e3093",
+  "table:admin_sessions": {
+    "rls": true,
+    "force_rls": false
+  },
+  "table:payment_events": {
+    "rls": true,
+    "force_rls": false
+  },
+  "column:order_items.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "column:orders.paid_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.image": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:profiles.email": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:profiles.phone": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:submissions.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "table:api_rate_limits": {
+    "rls": true,
+    "force_rls": false
+  },
+  "column:lots.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:lots.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:order_items.sku": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.currency": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "bea248b7034d086633b7626755bbd07e"
+  },
+  "column:products.active": {
+    "type": "boolean",
+    "not_null": true,
+    "default_hash": "68934a3e9455fa72420237eb05902327"
+  },
+  "column:products.origin": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.region": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "53feed110bc3e391e4b1e1a29ac5089a"
+  },
+  "table:analytics_events": {
+    "rls": true,
+    "force_rls": false
+  },
+  "table:product_variants": {
+    "rls": true,
+    "force_rls": false
+  },
+  "column:audit_logs.actor": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:lots.data_status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "243757c3496d05e9ce2b2c23dc2812bb"
+  },
+  "column:lots.import_date": {
+    "type": "date",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:lots.quantity_kg": {
+    "type": "numeric(12,3)",
+    "not_null": true,
+    "default_hash": "cfcd208495d565ef66e7dff9f98764da"
+  },
+  "column:notifications.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "column:orders.last_name": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.tax_cents": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "cfcd208495d565ef66e7dff9f98764da"
+  },
+  "column:products.eyebrow": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "column:products.gallery": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "8b4b2df56ad0773943ef9179742da01b"
+  },
+  "column:products.species": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.storage": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "column:shipments.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "fec9f09f21afc90ef5bf63af308416df"
+  },
+  "column:submissions.kind": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:audit_logs.action": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:lots.available_kg": {
+    "type": "numeric(12,3)",
+    "not_null": true,
+    "default_hash": "cfcd208495d565ef66e7dff9f98764da"
+  },
+  "column:lots.harvest_year": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:orders.first_name": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:payment_events.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "column:products.audience": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "65111790fa57a907ee578797f74a16df"
+  },
+  "column:products.category": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.featured": {
+    "type": "boolean",
+    "not_null": true,
+    "default_hash": "68934a3e9455fa72420237eb05902327"
+  },
+  "column:products.lot_code": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:shipments.carrier": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:shipments.service": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:submissions.notes": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "index:lots.lots_code_key": "364a8cdbb46757f5393052e5a6d30f40",
+  "index:orders.orders_pkey": "1e861b2316e46c7c69d0d3b4f87ca0f0",
+  "table:customer_addresses": {
+    "rls": true,
+    "force_rls": false
+  },
+  "column:lots.supplier_name": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "column:notifications.kind": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.customer_id": {
+    "type": "uuid",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.invoice_url": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.refunded_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.total_cents": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:shipments.order_id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:submissions.source": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d37a0b52d0f5d3a14cca52175da7f579"
+  },
+  "column:submissions.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "8faca220ef65304f0a02de2c1f777d86"
+  },
+  "constraint:lots.lots_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "function:set_updated_at()": {
+    "settings": null,
+    "anon_execute": true,
+    "definition_hash": "8de7ae383447503e8949149bfb3f0efb",
+    "service_execute": true,
+    "security_definer": false,
+    "authenticated_execute": true
+  },
+  "schema_create:public.anon": false,
+  "table:inventory_movements": {
+    "rls": true,
+    "force_rls": false
+  },
+  "table:marketing_campaigns": {
+    "rls": true,
+    "force_rls": false
+  },
+  "table:operational_records": {
+    "rls": true,
+    "force_rls": false
+  },
+  "table:order_status_events": {
+    "rls": true,
+    "force_rls": false
+  },
+  "column:admin_sessions.role": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "ac0948d08e5b779108769f2c0c45ab35"
+  },
+  "column:analytics_events.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "column:api_rate_limits.key": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:audit_logs.metadata": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "f3db357cf4f4a03883484fa3281a056c"
+  },
+  "column:lots.public_summary": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "column:lots.reception_date": {
+    "type": "date",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.cancelled_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.fulfilled_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.restocked_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:product_variants.id": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:products.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:profiles.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:profiles.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:shipments.label_url": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:submissions.payload": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "function:handle_new_user()": {
+    "settings": ["search_path=public"],
+    "anon_execute": true,
+    "definition_hash": "ae5679c40f64c4a4b38fb75581ecba6f",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": true
+  },
+  "column:audit_logs.entity_id": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:notifications.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "3d0c12821e68f0fc31291c72ad568aa9"
+  },
+  "column:order_items.lot_code": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:order_items.order_id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:order_items.quantity": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:product_variants.sku": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.composition": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "column:products.data_status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "243757c3496d05e9ce2b2c23dc2812bb"
+  },
+  "column:products.description": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:shipments.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:shipments.shipped_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:shipments.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:analytics_events.path": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:audit_logs.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:customer_addresses.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "column:lots.humidity_percent": {
+    "type": "numeric(5,2)",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:lots.public_documents": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "8b4b2df56ad0773943ef9179742da01b"
+  },
+  "column:notifications.payload": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "f3db357cf4f4a03883484fa3281a056c"
+  },
+  "column:notifications.sent_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.discount_cents": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "cfcd208495d565ef66e7dff9f98764da"
+  },
+  "column:orders.payment_status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "3d0c12821e68f0fc31291c72ad568aa9"
+  },
+  "column:orders.refunded_cents": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "cfcd208495d565ef66e7dff9f98764da"
+  },
+  "column:orders.shipping_cents": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.subtotal_cents": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:payment_events.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "0acd793a0473ce7088395d48b97de0a7"
+  },
+  "column:profiles.display_name": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "index:products.products_pkey": "365d71f4c98da1d65f9d0171c912d0d0",
+  "index:profiles.profiles_pkey": "b7142bbffc23de763c1bd9f00489ec05",
+  "table:newsletter_subscribers": {
+    "rls": true,
+    "force_rls": false
+  },
+  "trigger:lots.lots_updated_at": "a98b31ed294d26932192a46100b05db6",
+  "column:audit_logs.entity_type": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:inventory_movements.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "column:lots.average_length_mm": {
+    "type": "numeric(8,2)",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:marketing_campaigns.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "column:notifications.attempts": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "cfcd208495d565ef66e7dff9f98764da"
+  },
+  "column:notifications.order_id": {
+    "type": "uuid",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:operational_records.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "column:order_items.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:order_items.product_id": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:order_items.variant_id": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:order_status_events.id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "f3b72bb359a50b640590970a2ab8e514"
+  },
+  "column:orders.invoice_pdf_url": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.shipping_method": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:payment_events.payload": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "f3db357cf4f4a03883484fa3281a056c"
+  },
+  "column:product_variants.label": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:shipments.delivered_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:shipments.tracking_url": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:submissions.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "constraint:lots.lots_code_key": "62cc54e4d671b4dc6829956b3bc420bd",
+  "constraint:orders.orders_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "index:orders.orders_email_idx": "f5cd507f0b0dcdfeb8b9c66cb50c8998",
+  "column:customer_addresses.city": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.shipping_address": {
+    "type": "jsonb",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:payment_events.order_id": {
+    "type": "uuid",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:payment_events.provider": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "aaf8375148a861fde4c8f2217a6eec5b"
+  },
+  "column:product_variants.active": {
+    "type": "boolean",
+    "not_null": true,
+    "default_hash": "68934a3e9455fa72420237eb05902327"
+  },
+  "column:submissions.received_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "constraint:orders.orders_check": "ee70e82948726c98ad03d77044f51967",
+  "index:orders.orders_number_key": "f0b7b940f740d0454e2b4f6d0a6f3a05",
+  "index:shipments.shipments_pkey": "8a1289c2e12f234b81b78a544f415978",
+  "column:api_rate_limits.reset_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:customer_addresses.label": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:inventory_movements.note": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "column:marketing_campaigns.body": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:notifications.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:notifications.dedupe_key": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:notifications.last_error": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:notifications.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:operational_records.data": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "f3db357cf4f4a03883484fa3281a056c"
+  },
+  "column:order_items.product_name": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.marketing_consent": {
+    "type": "boolean",
+    "not_null": true,
+    "default_hash": "68934a3e9455fa72420237eb05902327"
+  },
+  "column:orders.stripe_invoice_id": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:admin_sessions.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:admin_sessions.expires_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:admin_sessions.revoked_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:inventory_movements.actor": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "c08e9b72a1f5c2105a2649c074575a84"
+  },
+  "column:operational_records.title": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:order_items.variant_label": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.fulfillment_status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "95754e5f21f08144fa86b550e49eb3ce"
+  },
+  "column:orders.stripe_customer_id": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:payment_events.event_type": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:payment_events.last_error": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:payment_events.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:shipments.tracking_number": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "index:audit_logs.audit_logs_pkey": "317c79cee841cd6d7153250cf6d9e107",
+  "index:products.products_slug_key": "9ac078b1f1ef799ae3643bcbb0ac6c5b",
+  "table_privilege:lots.anon.DELETE": false,
+  "table_privilege:lots.anon.INSERT": false,
+  "table_privilege:lots.anon.SELECT": true,
+  "table_privilege:lots.anon.UPDATE": false,
+  "trigger:orders.orders_updated_at": "f3f7edd24167a6788770f541bfdd41b0",
+  "column:customer_addresses.country": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "a652f47a62c35a0842d7e7c1b83d86e5"
+  },
+  "column:customer_addresses.user_id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:inventory_movements.reason": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:marketing_campaigns.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "c248d674101d8b24c97279095c3a6dde"
+  },
+  "column:notifications.scheduled_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:operational_records.module": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:operational_records.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:order_status_events.public": {
+    "type": "boolean",
+    "not_null": true,
+    "default_hash": "b326b5062b2f0e69046810717534cb09"
+  },
+  "column:order_status_events.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.checkout_attempt_id": {
+    "type": "uuid",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:products.short_description": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:profiles.marketing_consent": {
+    "type": "boolean",
+    "not_null": true,
+    "default_hash": "68934a3e9455fa72420237eb05902327"
+  },
+  "constraint:lots.lots_status_check": "0c8df5e5d2f0639b71a5433c77885bd1",
+  "constraint:products.products_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:profiles.profiles_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "function:admin_customer_summary()": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "0f40bb02f576b692a8d8b4e6bf875893",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:analytics_daily(integer)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "cee73c53c31ada84378e4fa57ae6836f",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:prune_operational_data()": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "fa11cbf3b549556756da6476745e438d",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:release_expired_orders()": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "80af192b63ce991d8f72c2b3d7c2f5b1",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "schema_create:public.service_role": false,
+  "table_privilege:lots.anon.TRIGGER": true,
+  "column:admin_sessions.mfa_verified": {
+    "type": "boolean",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:admin_sessions.session_hash": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:analytics_events.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:analytics_events.event_name": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:analytics_events.properties": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "f3db357cf4f4a03883484fa3281a056c"
+  },
+  "column:customer_addresses.province": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:marketing_campaigns.heading": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:marketing_campaigns.subject": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:order_status_events.message": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:payment_events.processed_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:product_variants.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:product_variants.product_id": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:product_variants.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "function:admin_inventory_summary()": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "9a9ac107be00aa0e4d3640cb31173fde",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:analytics_funnel(integer)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "ba7162aa25767ffc6295e15ce7872dc5",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:commerce_schema_version()": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "175a52d9eb35f1fb512c563fede4d290",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "index:order_items.order_items_pkey": "51a09886298025fcd36679c401c34777",
+  "index:orders.orders_created_at_idx": "7e4c26e2af2ae88b45903fa9866c1eea",
+  "index:submissions.submissions_pkey": "207dd87f47bfd802bdb23e918f6a84cc",
+  "schema_create:public.authenticated": false,
+  "table_privilege:lots.anon.TRUNCATE": true,
+  "table_privilege:orders.anon.DELETE": false,
+  "table_privilege:orders.anon.INSERT": false,
+  "table_privilege:orders.anon.SELECT": true,
+  "table_privilege:orders.anon.UPDATE": false,
+  "column:customer_addresses.last_name": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:inventory_movements.order_id": {
+    "type": "uuid",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:newsletter_subscribers.email": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:operational_records.archived": {
+    "type": "boolean",
+    "not_null": true,
+    "default_hash": "68934a3e9455fa72420237eb05902327"
+  },
+  "column:order_items.line_total_cents": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:order_items.unit_price_cents": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:order_status_events.metadata": {
+    "type": "jsonb",
+    "not_null": true,
+    "default_hash": "f3db357cf4f4a03883484fa3281a056c"
+  },
+  "column:order_status_events.order_id": {
+    "type": "uuid",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.checkout_request_hash": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:payment_events.attempt_count": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "c4ca4238a0b923820dcc509a6f75849b"
+  },
+  "column:product_variants.price_cents": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:orders.orders_number_key": "9a4cea60d1d80bf918ebd3ab4543a2db",
+  "constraint:shipments.shipments_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "function:mark_order_delivered(uuid)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "5081ea5bce3915ac9bd5cb8e25c4ca59",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:revoke_admin_session(text)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "2d10b1623d087c8440bab13ad4e45bc5",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "table_privilege:orders.anon.TRIGGER": true,
+  "column:analytics_events.anonymous_id": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:api_rate_limits.request_count": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "cfcd208495d565ef66e7dff9f98764da"
+  },
+  "column:customer_addresses.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:customer_addresses.first_name": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:customer_addresses.is_default": {
+    "type": "boolean",
+    "not_null": true,
+    "default_hash": "68934a3e9455fa72420237eb05902327"
+  },
+  "column:customer_addresses.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:marketing_campaigns.preheader": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "column:newsletter_subscribers.status": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "3d0c12821e68f0fc31291c72ad568aa9"
+  },
+  "column:notifications.recipient_email": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:orders.reservation_expires_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:product_variants.weight_grams": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:profiles.profiles_id_fkey": "0061c9fb3a9abcf2edbcd4a42467a9c3",
+  "function:admin_recall_impact(text[])": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "a15bc914e5f7b547bca62d397f8e66a8",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:mark_order_processing(uuid)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "eaf48a730f7223d5921e0b707e751fee",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "table_privilege:lots.anon.REFERENCES": true,
+  "table_privilege:orders.anon.TRUNCATE": true,
+  "table_privilege:products.anon.DELETE": false,
+  "table_privilege:products.anon.INSERT": false,
+  "table_privilege:products.anon.SELECT": true,
+  "table_privilege:products.anon.UPDATE": false,
+  "table_privilege:profiles.anon.DELETE": false,
+  "table_privilege:profiles.anon.INSERT": false,
+  "table_privilege:profiles.anon.SELECT": true,
+  "table_privilege:profiles.anon.UPDATE": false,
+  "trigger:products.products_updated_at": "52478f42460289cc7c0e9b84afa555f9",
+  "trigger:profiles.profiles_updated_at": "3c5a259cf4d3be0c86a146e15e8ef45d",
+  "column:customer_addresses.postal_code": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:inventory_movements.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:inventory_movements.variant_id": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:marketing_campaigns.action_url": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "column:marketing_campaigns.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:marketing_campaigns.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:operational_records.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:operational_records.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:order_status_events.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:product_variants.stock_on_hand": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "cfcd208495d565ef66e7dff9f98764da"
+  },
+  "constraint:audit_logs.audit_logs_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:orders.orders_status_check": "d02f4aee591df85cacda7620e72007bc",
+  "constraint:products.products_slug_key": "687397275d0e852fb2a4b50394adffee",
+  "table_privilege:products.anon.TRIGGER": true,
+  "table_privilege:profiles.anon.TRIGGER": true,
+  "table_privilege:shipments.anon.DELETE": false,
+  "table_privilege:shipments.anon.INSERT": false,
+  "table_privilege:shipments.anon.SELECT": true,
+  "table_privilege:shipments.anon.UPDATE": false,
+  "column:orders.stripe_payment_intent_id": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:product_variants.stock_reserved": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "cfcd208495d565ef66e7dff9f98764da"
+  },
+  "constraint:lots.lots_data_status_check": "7609ff8de3673cbe4b8e669e95c96a2e",
+  "function:fail_payment_event(text,text)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "a2d51c16aad154cee8d8d8793f7f43b7",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "index:notifications.notifications_pkey": "3435fbb51aa7e7d2ac858b253960952b",
+  "table_privilege:audit_logs.anon.DELETE": false,
+  "table_privilege:audit_logs.anon.INSERT": false,
+  "table_privilege:audit_logs.anon.SELECT": true,
+  "table_privilege:audit_logs.anon.UPDATE": false,
+  "table_privilege:orders.anon.REFERENCES": true,
+  "table_privilege:products.anon.TRUNCATE": true,
+  "table_privilege:profiles.anon.TRUNCATE": true,
+  "table_privilege:shipments.anon.TRIGGER": true,
+  "trigger:shipments.shipments_updated_at": "f580466b44c00964e60847d075fe26b1",
+  "column:customer_addresses.address_line1": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:customer_addresses.address_line2": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "column:lots.public_traceability_enabled": {
+    "type": "boolean",
+    "not_null": true,
+    "default_hash": "68934a3e9455fa72420237eb05902327"
+  },
+  "column:marketing_campaigns.action_label": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "86e751880b3791dd7c2efae188915799"
+  },
+  "column:payment_events.provider_event_id": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:order_items.order_items_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:orders.orders_currency_check": "8209b03f1cd321da4e2b2d15b88438ec",
+  "constraint:profiles.profiles_role_check": "5608f657006a72b43e2ced1e33736011",
+  "constraint:submissions.submissions_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "index:order_items.order_items_order_idx": "c609fa5ef78250a0b219b6756ad7acf0",
+  "table_privilege:audit_logs.anon.TRIGGER": true,
+  "table_privilege:order_items.anon.DELETE": false,
+  "table_privilege:order_items.anon.INSERT": false,
+  "table_privilege:order_items.anon.SELECT": true,
+  "table_privilege:order_items.anon.UPDATE": false,
+  "table_privilege:shipments.anon.TRUNCATE": true,
+  "table_privilege:submissions.anon.DELETE": false,
+  "table_privilege:submissions.anon.INSERT": false,
+  "table_privilege:submissions.anon.SELECT": false,
+  "table_privilege:submissions.anon.UPDATE": false,
+  "column:newsletter_subscribers.consent_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:newsletter_subscribers.created_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:newsletter_subscribers.updated_at": {
+    "type": "timestamp with time zone",
+    "not_null": true,
+    "default_hash": "75230039beb12ce952f24927f2bfa2f2"
+  },
+  "column:orders.stripe_checkout_session_id": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:orders.orders_tax_cents_check": "bdc52c41480d68c30916004cb2a31807",
+  "index:admin_sessions.admin_sessions_pkey": "8ca4654f94ee7d6e4d0855ac65859c07",
+  "index:payment_events.payment_events_pkey": "2e2fe8841548984a4f5c090415792161",
+  "table_privilege:audit_logs.anon.TRUNCATE": true,
+  "table_privilege:lots.service_role.DELETE": true,
+  "table_privilege:lots.service_role.INSERT": true,
+  "table_privilege:lots.service_role.SELECT": true,
+  "table_privilege:lots.service_role.UPDATE": true,
+  "table_privilege:order_items.anon.TRIGGER": true,
+  "table_privilege:products.anon.REFERENCES": true,
+  "table_privilege:profiles.anon.REFERENCES": true,
+  "table_privilege:submissions.anon.TRIGGER": false,
+  "column:inventory_movements.quantity_delta": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:orders.orders_customer_id_fkey": "4c453ad95798206f4e527874beb1b7c3",
+  "constraint:products.products_status_check": "1504e34ba0dc266e6ddce30783255dd6",
+  "function:attach_stripe_session(uuid,text)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "11a981eb4eff54d173a3ae03874f59eb",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "table_privilege:lots.authenticated.DELETE": false,
+  "table_privilege:lots.authenticated.INSERT": false,
+  "table_privilege:lots.authenticated.SELECT": true,
+  "table_privilege:lots.authenticated.UPDATE": false,
+  "table_privilege:lots.service_role.TRIGGER": true,
+  "table_privilege:notifications.anon.DELETE": false,
+  "table_privilege:notifications.anon.INSERT": false,
+  "table_privilege:notifications.anon.SELECT": true,
+  "table_privilege:notifications.anon.UPDATE": false,
+  "table_privilege:order_items.anon.TRUNCATE": true,
+  "table_privilege:shipments.anon.REFERENCES": true,
+  "table_privilege:submissions.anon.TRUNCATE": false,
+  "column:marketing_campaigns.recipient_count": {
+    "type": "integer",
+    "not_null": true,
+    "default_hash": "cfcd208495d565ef66e7dff9f98764da"
+  },
+  "column:newsletter_subscribers.confirmed_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:orders.orders_total_cents_check": "11bf823dae61f175be0a7acf76bacaed",
+  "function:complete_payment_event(text,uuid)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "1fa04c21210e681874987d6ad07c2414",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:mark_order_refunded(uuid,boolean)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "925d394d360773f2e6765fe18e246a76",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "index:api_rate_limits.api_rate_limits_pkey": "4078159cb8e0a19129b65b6b4ba477ee",
+  "policy:public.orders.Users read own orders": {
+    "roles": ["public"],
+    "command": "SELECT",
+    "check_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "permissive": "PERMISSIVE",
+    "using_hash": "7ef619e6d80cb1944ee81a3a5bd52929"
+  },
+  "table_privilege:admin_sessions.anon.DELETE": false,
+  "table_privilege:admin_sessions.anon.INSERT": false,
+  "table_privilege:admin_sessions.anon.SELECT": false,
+  "table_privilege:admin_sessions.anon.UPDATE": false,
+  "table_privilege:audit_logs.anon.REFERENCES": true,
+  "table_privilege:lots.authenticated.TRIGGER": true,
+  "table_privilege:lots.service_role.TRUNCATE": true,
+  "table_privilege:notifications.anon.TRIGGER": true,
+  "table_privilege:orders.service_role.DELETE": true,
+  "table_privilege:orders.service_role.INSERT": true,
+  "table_privilege:orders.service_role.SELECT": true,
+  "table_privilege:orders.service_role.UPDATE": true,
+  "table_privilege:payment_events.anon.DELETE": false,
+  "table_privilege:payment_events.anon.INSERT": false,
+  "table_privilege:payment_events.anon.SELECT": true,
+  "table_privilege:payment_events.anon.UPDATE": false,
+  "trigger:submissions.submissions_updated_at": "c09040f507810f3de16a133103c813a5",
+  "constraint:lots.lots_humidity_percent_check": "dacea12fe39769718c0b5193fece5d9c",
+  "constraint:notifications.notifications_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:products.products_category_check": "f3c0d9df6cca4370632699b21da0720f",
+  "constraint:shipments.shipments_status_check": "0a051883004b9c4f69b211bf600bceab",
+  "function:delete_customer_address(uuid,uuid)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "ae0de5157321a349c42032df34f22aea",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "index:orders.orders_checkout_attempt_id_idx": "ed20972c60a58a4d9d6a05107023edd9",
+  "table_privilege:admin_sessions.anon.TRIGGER": false,
+  "table_privilege:api_rate_limits.anon.DELETE": false,
+  "table_privilege:api_rate_limits.anon.INSERT": false,
+  "table_privilege:api_rate_limits.anon.SELECT": true,
+  "table_privilege:api_rate_limits.anon.UPDATE": false,
+  "table_privilege:lots.authenticated.TRUNCATE": true,
+  "table_privilege:notifications.anon.TRUNCATE": true,
+  "table_privilege:order_items.anon.REFERENCES": true,
+  "table_privilege:orders.authenticated.DELETE": false,
+  "table_privilege:orders.authenticated.INSERT": false,
+  "table_privilege:orders.authenticated.SELECT": true,
+  "table_privilege:orders.authenticated.UPDATE": false,
+  "table_privilege:orders.service_role.TRIGGER": true,
+  "table_privilege:payment_events.anon.TRIGGER": true,
+  "table_privilege:submissions.anon.REFERENCES": false,
+  "column:newsletter_subscribers.consent_source": {
+    "type": "text",
+    "not_null": true,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:lots.lots_average_length_mm_check": "c1878688fda1c01a3d5a8889240d580e",
+  "constraint:shipments.shipments_order_id_fkey": "25aa7307969164af40ae7aa4a4b0d54e",
+  "function:create_customer_address(uuid,jsonb)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "2a2774b466a61c3362df15d1f5f111c2",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "index:analytics_events.analytics_created_idx": "f4f39afe4826ed05e997cd677502e939",
+  "index:analytics_events.analytics_events_pkey": "b834f5c65a922ba1f2a5ffbc27cb8a05",
+  "index:notifications.notifications_dedupe_idx": "cb578ab82754432fa9d9ee2509bb0c3b",
+  "index:product_variants.product_variants_pkey": "4a0179f98b06534702cee6140db96a09",
+  "table_privilege:admin_sessions.anon.TRUNCATE": false,
+  "table_privilege:analytics_events.anon.DELETE": false,
+  "table_privilege:analytics_events.anon.INSERT": false,
+  "table_privilege:analytics_events.anon.SELECT": true,
+  "table_privilege:analytics_events.anon.UPDATE": false,
+  "table_privilege:api_rate_limits.anon.TRIGGER": true,
+  "table_privilege:lots.service_role.REFERENCES": true,
+  "table_privilege:orders.authenticated.TRIGGER": true,
+  "table_privilege:orders.service_role.TRUNCATE": true,
+  "table_privilege:payment_events.anon.TRUNCATE": true,
+  "table_privilege:product_variants.anon.DELETE": false,
+  "table_privilege:product_variants.anon.INSERT": false,
+  "table_privilege:product_variants.anon.SELECT": true,
+  "table_privilege:product_variants.anon.UPDATE": false,
+  "table_privilege:products.service_role.DELETE": true,
+  "table_privilege:products.service_role.INSERT": true,
+  "table_privilege:products.service_role.SELECT": true,
+  "table_privilege:products.service_role.UPDATE": true,
+  "table_privilege:profiles.service_role.DELETE": true,
+  "table_privilege:profiles.service_role.INSERT": true,
+  "table_privilege:profiles.service_role.SELECT": true,
+  "table_privilege:profiles.service_role.UPDATE": true,
+  "trigger:product_variants.variants_updated_at": "0ce248249d80ae5d49d45b70d541fa97",
+  "column:newsletter_subscribers.unsubscribed_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:admin_sessions.admin_sessions_pkey": "addeadaaf5f1eccbf9045f29695c18a0",
+  "constraint:orders.orders_discount_cents_check": "242f8e87091cee8bc7acfac5deb91f9b",
+  "constraint:orders.orders_payment_status_check": "016fc83aff35046c3f6a94b87e0938cd",
+  "constraint:orders.orders_refunded_cents_valid": "ee70e82948726c98ad03d77044f51967",
+  "constraint:orders.orders_shipping_cents_check": "6eacec2153080765480dbcc7a3834367",
+  "constraint:orders.orders_subtotal_cents_check": "0da310c019d727c1dcb902759bd89bfa",
+  "constraint:payment_events.payment_events_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:submissions.submissions_kind_check": "0c88bc57341544426ebb47fbe7847d4b",
+  "function:analytics_top_paths(integer,integer)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "a4ece611914e2f19729ef30a88b51de1",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:claim_payment_event(text,text,jsonb)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "ceb424cfdb54a9360addb4600d081f29",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:release_order_reservation(uuid,text)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "bf8e98306a2949f80c014ad67c252bde",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "index:notifications.notifications_pending_idx": "1bdcffbfb93f7e89306d4e5b5db019ed",
+  "policy:public.profiles.Users read own profile": {
+    "roles": ["public"],
+    "command": "SELECT",
+    "check_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "permissive": "PERMISSIVE",
+    "using_hash": "822e421dda501eb75fa06e2612916f2b"
+  },
+  "table_privilege:analytics_events.anon.TRIGGER": true,
+  "table_privilege:api_rate_limits.anon.TRUNCATE": true,
+  "table_privilege:lots.authenticated.REFERENCES": true,
+  "table_privilege:notifications.anon.REFERENCES": true,
+  "table_privilege:orders.authenticated.TRUNCATE": true,
+  "table_privilege:product_variants.anon.TRIGGER": true,
+  "table_privilege:products.authenticated.DELETE": false,
+  "table_privilege:products.authenticated.INSERT": false,
+  "table_privilege:products.authenticated.SELECT": true,
+  "table_privilege:products.authenticated.UPDATE": false,
+  "table_privilege:products.service_role.TRIGGER": true,
+  "table_privilege:profiles.authenticated.DELETE": false,
+  "table_privilege:profiles.authenticated.INSERT": false,
+  "table_privilege:profiles.authenticated.SELECT": true,
+  "table_privilege:profiles.authenticated.UPDATE": false,
+  "table_privilege:profiles.service_role.TRIGGER": true,
+  "table_privilege:shipments.service_role.DELETE": true,
+  "table_privilege:shipments.service_role.INSERT": true,
+  "table_privilege:shipments.service_role.SELECT": true,
+  "table_privilege:shipments.service_role.UPDATE": true,
+  "column:product_variants.compare_at_price_cents": {
+    "type": "integer",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:admin_sessions.admin_sessions_check": "bfb193798f174df734bb8eb01e0f69fa",
+  "constraint:orders.orders_shipping_method_check": "41e2dbd7658b95241565d6c2437ae3da",
+  "constraint:products.products_data_status_check": "7609ff8de3673cbe4b8e669e95c96a2e",
+  "function:is_admin_session_active(text,boolean)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "087ed596b16b31b02d3fa3376ae7b3b5",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "table_privilege:admin_sessions.anon.REFERENCES": false,
+  "table_privilege:analytics_events.anon.TRUNCATE": true,
+  "table_privilege:audit_logs.service_role.DELETE": true,
+  "table_privilege:audit_logs.service_role.INSERT": true,
+  "table_privilege:audit_logs.service_role.SELECT": true,
+  "table_privilege:audit_logs.service_role.UPDATE": true,
+  "table_privilege:customer_addresses.anon.DELETE": false,
+  "table_privilege:customer_addresses.anon.INSERT": false,
+  "table_privilege:customer_addresses.anon.SELECT": true,
+  "table_privilege:customer_addresses.anon.UPDATE": false,
+  "table_privilege:orders.service_role.REFERENCES": true,
+  "table_privilege:payment_events.anon.REFERENCES": true,
+  "table_privilege:product_variants.anon.TRUNCATE": true,
+  "table_privilege:products.authenticated.TRIGGER": true,
+  "table_privilege:products.service_role.TRUNCATE": true,
+  "table_privilege:profiles.authenticated.TRIGGER": true,
+  "table_privilege:profiles.service_role.TRUNCATE": true,
+  "table_privilege:shipments.authenticated.DELETE": false,
+  "table_privilege:shipments.authenticated.INSERT": false,
+  "table_privilege:shipments.authenticated.SELECT": true,
+  "table_privilege:shipments.authenticated.UPDATE": false,
+  "table_privilege:shipments.service_role.TRIGGER": true,
+  "trigger:notifications.notifications_updated_at": "668a59446e52095b70d9463dc9ebfd97",
+  "constraint:api_rate_limits.api_rate_limits_pkey": "729d3ed6c85722f863da384d2313331e",
+  "function:check_rate_limit(text,integer,integer)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "f8a65becb23d7f4e5f80b29eac72455c",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "index:product_variants.product_variants_sku_key": "d5163b7af96cc3bbc297ec5fbf0e5e91",
+  "index:submissions.submissions_kind_received_idx": "8a9d4d0419509e6ce720d3384bbb341a",
+  "table_privilege:api_rate_limits.anon.REFERENCES": true,
+  "table_privilege:audit_logs.authenticated.DELETE": false,
+  "table_privilege:audit_logs.authenticated.INSERT": false,
+  "table_privilege:audit_logs.authenticated.SELECT": true,
+  "table_privilege:audit_logs.authenticated.UPDATE": false,
+  "table_privilege:audit_logs.service_role.TRIGGER": true,
+  "table_privilege:customer_addresses.anon.TRIGGER": true,
+  "table_privilege:inventory_movements.anon.DELETE": false,
+  "table_privilege:inventory_movements.anon.INSERT": false,
+  "table_privilege:inventory_movements.anon.SELECT": false,
+  "table_privilege:inventory_movements.anon.UPDATE": false,
+  "table_privilege:marketing_campaigns.anon.DELETE": false,
+  "table_privilege:marketing_campaigns.anon.INSERT": false,
+  "table_privilege:marketing_campaigns.anon.SELECT": true,
+  "table_privilege:marketing_campaigns.anon.UPDATE": false,
+  "table_privilege:operational_records.anon.DELETE": false,
+  "table_privilege:operational_records.anon.INSERT": false,
+  "table_privilege:operational_records.anon.SELECT": false,
+  "table_privilege:operational_records.anon.UPDATE": false,
+  "table_privilege:order_items.service_role.DELETE": true,
+  "table_privilege:order_items.service_role.INSERT": true,
+  "table_privilege:order_items.service_role.SELECT": true,
+  "table_privilege:order_items.service_role.UPDATE": true,
+  "table_privilege:order_status_events.anon.DELETE": false,
+  "table_privilege:order_status_events.anon.INSERT": false,
+  "table_privilege:order_status_events.anon.SELECT": true,
+  "table_privilege:order_status_events.anon.UPDATE": false,
+  "table_privilege:orders.authenticated.REFERENCES": true,
+  "table_privilege:products.authenticated.TRUNCATE": true,
+  "table_privilege:profiles.authenticated.TRUNCATE": true,
+  "table_privilege:shipments.authenticated.TRIGGER": true,
+  "table_privilege:shipments.service_role.TRUNCATE": true,
+  "table_privilege:submissions.service_role.DELETE": true,
+  "table_privilege:submissions.service_role.INSERT": true,
+  "table_privilege:submissions.service_role.SELECT": true,
+  "table_privilege:submissions.service_role.UPDATE": true,
+  "constraint:order_items.order_items_order_id_fkey": "25aa7307969164af40ae7aa4a4b0d54e",
+  "index:customer_addresses.customer_addresses_pkey": "35e422050aeab4dc9ff93478a6055995",
+  "index:order_status_events.order_events_order_idx": "5d4ad3fd5361fffe8a037d0a7ea846f8",
+  "policy:public.shipments.Users read own shipments": {
+    "roles": ["public"],
+    "command": "SELECT",
+    "check_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "permissive": "PERMISSIVE",
+    "using_hash": "897a1a630ec7e50ffaf078f8bfa0dee8"
+  },
+  "table_privilege:analytics_events.anon.REFERENCES": true,
+  "table_privilege:audit_logs.authenticated.TRIGGER": true,
+  "table_privilege:audit_logs.service_role.TRUNCATE": true,
+  "table_privilege:customer_addresses.anon.TRUNCATE": true,
+  "table_privilege:inventory_movements.anon.TRIGGER": false,
+  "table_privilege:marketing_campaigns.anon.TRIGGER": true,
+  "table_privilege:operational_records.anon.TRIGGER": false,
+  "table_privilege:order_items.authenticated.DELETE": false,
+  "table_privilege:order_items.authenticated.INSERT": false,
+  "table_privilege:order_items.authenticated.SELECT": true,
+  "table_privilege:order_items.authenticated.UPDATE": false,
+  "table_privilege:order_items.service_role.TRIGGER": true,
+  "table_privilege:order_status_events.anon.TRIGGER": true,
+  "table_privilege:product_variants.anon.REFERENCES": true,
+  "table_privilege:products.service_role.REFERENCES": true,
+  "table_privilege:profiles.service_role.REFERENCES": true,
+  "table_privilege:shipments.authenticated.TRUNCATE": true,
+  "table_privilege:submissions.authenticated.DELETE": false,
+  "table_privilege:submissions.authenticated.INSERT": false,
+  "table_privilege:submissions.authenticated.SELECT": false,
+  "table_privilege:submissions.authenticated.UPDATE": false,
+  "table_privilege:submissions.service_role.TRIGGER": true,
+  "constraint:analytics_events.analytics_events_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:order_items.order_items_quantity_check": "3b3dcc7b57a261b25388a7de881077a3",
+  "constraint:orders.orders_fulfillment_status_check": "b337f149dc3605cb939e506eb6540683",
+  "constraint:product_variants.product_variants_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "function:adjust_inventory(text,integer,text,text)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "987dec602c529195774c926818248374",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:update_customer_address(uuid,uuid,jsonb)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "eb890cd538e83dfd570f07f550081e52",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "table_privilege:audit_logs.authenticated.TRUNCATE": true,
+  "table_privilege:inventory_movements.anon.TRUNCATE": false,
+  "table_privilege:marketing_campaigns.anon.TRUNCATE": true,
+  "table_privilege:notifications.service_role.DELETE": true,
+  "table_privilege:notifications.service_role.INSERT": true,
+  "table_privilege:notifications.service_role.SELECT": true,
+  "table_privilege:notifications.service_role.UPDATE": true,
+  "table_privilege:operational_records.anon.TRUNCATE": false,
+  "table_privilege:order_items.authenticated.TRIGGER": true,
+  "table_privilege:order_items.service_role.TRUNCATE": true,
+  "table_privilege:order_status_events.anon.TRUNCATE": true,
+  "table_privilege:products.authenticated.REFERENCES": true,
+  "table_privilege:profiles.authenticated.REFERENCES": true,
+  "table_privilege:shipments.service_role.REFERENCES": true,
+  "table_privilege:submissions.authenticated.TRIGGER": false,
+  "table_privilege:submissions.service_role.TRUNCATE": true,
+  "constraint:order_items.order_items_product_id_fkey": "8637750d2dbbdd71c5cf4c3b128927c1",
+  "constraint:order_items.order_items_variant_id_fkey": "d2493714db771fcced822695ade42bfb",
+  "constraint:product_variants.product_variants_check": "1300ba5948d946a7bc2e1636a5863bdf",
+  "index:inventory_movements.inventory_movements_pkey": "bcd8fd818f9b2d5f061de3017d8f4657",
+  "index:marketing_campaigns.marketing_campaigns_pkey": "c8b9fca352fb8677d4980cce7719cf77",
+  "index:operational_records.operational_records_pkey": "2626cc8a03b9806e82699f36714d2262",
+  "index:order_status_events.order_status_events_pkey": "dffc52a183b34a3492667efa989da94e",
+  "index:orders.orders_stripe_checkout_session_id_key": "b0c61b60d82dcf7e4fb89aa9f9b5dba3",
+  "table_privilege:admin_sessions.service_role.DELETE": true,
+  "table_privilege:admin_sessions.service_role.INSERT": true,
+  "table_privilege:admin_sessions.service_role.SELECT": true,
+  "table_privilege:admin_sessions.service_role.UPDATE": true,
+  "table_privilege:audit_logs.service_role.REFERENCES": true,
+  "table_privilege:customer_addresses.anon.REFERENCES": true,
+  "table_privilege:newsletter_subscribers.anon.DELETE": false,
+  "table_privilege:newsletter_subscribers.anon.INSERT": false,
+  "table_privilege:newsletter_subscribers.anon.SELECT": true,
+  "table_privilege:newsletter_subscribers.anon.UPDATE": false,
+  "table_privilege:notifications.authenticated.DELETE": false,
+  "table_privilege:notifications.authenticated.INSERT": false,
+  "table_privilege:notifications.authenticated.SELECT": true,
+  "table_privilege:notifications.authenticated.UPDATE": false,
+  "table_privilege:notifications.service_role.TRIGGER": true,
+  "table_privilege:order_items.authenticated.TRUNCATE": true,
+  "table_privilege:payment_events.service_role.DELETE": true,
+  "table_privilege:payment_events.service_role.INSERT": true,
+  "table_privilege:payment_events.service_role.SELECT": true,
+  "table_privilege:payment_events.service_role.UPDATE": true,
+  "table_privilege:shipments.authenticated.REFERENCES": true,
+  "table_privilege:submissions.authenticated.TRUNCATE": false,
+  "constraint:admin_sessions.admin_sessions_role_check": "da5a90f0128559be552e77b07d02891a",
+  "constraint:notifications.notifications_status_check": "d730b7528e62eccf8c082c8ceeb5c9e0",
+  "constraint:orders.orders_discount_cents_nonnegative": "242f8e87091cee8bc7acfac5deb91f9b",
+  "constraint:product_variants.product_variants_check1": "f8ce75bd33251898e56783d72a3d41b3",
+  "index:notifications.notifications_dedupe_upsert_idx": "693fcf6e005f80a53961ec7ccf3398f9",
+  "policy:public.products.Public reads active products": {
+    "roles": ["public"],
+    "command": "SELECT",
+    "check_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "permissive": "PERMISSIVE",
+    "using_hash": "4edddc86d6a5ca53305b1985a672869e"
+  },
+  "table_privilege:admin_sessions.authenticated.DELETE": false,
+  "table_privilege:admin_sessions.authenticated.INSERT": false,
+  "table_privilege:admin_sessions.authenticated.SELECT": false,
+  "table_privilege:admin_sessions.authenticated.UPDATE": false,
+  "table_privilege:admin_sessions.service_role.TRIGGER": true,
+  "table_privilege:api_rate_limits.service_role.DELETE": true,
+  "table_privilege:api_rate_limits.service_role.INSERT": true,
+  "table_privilege:api_rate_limits.service_role.SELECT": true,
+  "table_privilege:api_rate_limits.service_role.UPDATE": true,
+  "table_privilege:audit_logs.authenticated.REFERENCES": true,
+  "table_privilege:inventory_movements.anon.REFERENCES": false,
+  "table_privilege:marketing_campaigns.anon.REFERENCES": true,
+  "table_privilege:newsletter_subscribers.anon.TRIGGER": true,
+  "table_privilege:notifications.authenticated.TRIGGER": true,
+  "table_privilege:notifications.service_role.TRUNCATE": true,
+  "table_privilege:operational_records.anon.REFERENCES": false,
+  "table_privilege:order_items.service_role.REFERENCES": true,
+  "table_privilege:order_status_events.anon.REFERENCES": true,
+  "table_privilege:payment_events.authenticated.DELETE": false,
+  "table_privilege:payment_events.authenticated.INSERT": false,
+  "table_privilege:payment_events.authenticated.SELECT": true,
+  "table_privilege:payment_events.authenticated.UPDATE": false,
+  "table_privilege:payment_events.service_role.TRIGGER": true,
+  "table_privilege:submissions.service_role.REFERENCES": true,
+  "column:newsletter_subscribers.unsubscribe_token_hash": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:notifications.notifications_order_id_fkey": "25aa7307969164af40ae7aa4a4b0d54e",
+  "constraint:product_variants.product_variants_sku_key": "ecdd4fdb7ec81683b7b4c1c51fa77b95",
+  "function:mark_order_partially_refunded(uuid,integer)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "5014c65a452c861f3f124b3650fb63b0",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "index:customer_addresses.customer_addresses_user_idx": "3dccb824f6ee41e13f9005262ef76514",
+  "policy:public.order_items.Users read own order items": {
+    "roles": ["public"],
+    "command": "SELECT",
+    "check_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "permissive": "PERMISSIVE",
+    "using_hash": "b9f2f77ab93d3e83edd0ffaf2d249b0b"
+  },
+  "table_privilege:admin_sessions.authenticated.TRIGGER": false,
+  "table_privilege:admin_sessions.service_role.TRUNCATE": true,
+  "table_privilege:analytics_events.service_role.DELETE": true,
+  "table_privilege:analytics_events.service_role.INSERT": true,
+  "table_privilege:analytics_events.service_role.SELECT": true,
+  "table_privilege:analytics_events.service_role.UPDATE": true,
+  "table_privilege:api_rate_limits.authenticated.DELETE": false,
+  "table_privilege:api_rate_limits.authenticated.INSERT": false,
+  "table_privilege:api_rate_limits.authenticated.SELECT": true,
+  "table_privilege:api_rate_limits.authenticated.UPDATE": false,
+  "table_privilege:api_rate_limits.service_role.TRIGGER": true,
+  "table_privilege:newsletter_subscribers.anon.TRUNCATE": true,
+  "table_privilege:notifications.authenticated.TRUNCATE": true,
+  "table_privilege:order_items.authenticated.REFERENCES": true,
+  "table_privilege:payment_events.authenticated.TRIGGER": true,
+  "table_privilege:payment_events.service_role.TRUNCATE": true,
+  "table_privilege:product_variants.service_role.DELETE": true,
+  "table_privilege:product_variants.service_role.INSERT": true,
+  "table_privilege:product_variants.service_role.SELECT": true,
+  "table_privilege:product_variants.service_role.UPDATE": true,
+  "table_privilege:submissions.authenticated.REFERENCES": false,
+  "column:newsletter_subscribers.confirmation_expires_at": {
+    "type": "timestamp with time zone",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "column:newsletter_subscribers.confirmation_token_hash": {
+    "type": "text",
+    "not_null": false,
+    "default_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "constraint:customer_addresses.customer_addresses_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:orders.orders_checkout_request_hash_format": "10cb17cb98a22ce1e371a2a02f1b83ff",
+  "constraint:payment_events.payment_events_status_check": "d7f0243602e5453e4f152607759977f5",
+  "function:mark_order_shipped(uuid,text,text,text,text)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "749b2e8e0301996f1b5ed1ead54e2296",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:update_shipment_status(uuid,text,text,jsonb)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "f7eeab4472887794eda1a6f64843873a",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "table_privilege:admin_sessions.authenticated.TRUNCATE": false,
+  "table_privilege:analytics_events.authenticated.DELETE": false,
+  "table_privilege:analytics_events.authenticated.INSERT": false,
+  "table_privilege:analytics_events.authenticated.SELECT": true,
+  "table_privilege:analytics_events.authenticated.UPDATE": false,
+  "table_privilege:analytics_events.service_role.TRIGGER": true,
+  "table_privilege:api_rate_limits.authenticated.TRIGGER": true,
+  "table_privilege:api_rate_limits.service_role.TRUNCATE": true,
+  "table_privilege:notifications.service_role.REFERENCES": true,
+  "table_privilege:payment_events.authenticated.TRUNCATE": true,
+  "table_privilege:product_variants.authenticated.DELETE": false,
+  "table_privilege:product_variants.authenticated.INSERT": false,
+  "table_privilege:product_variants.authenticated.SELECT": true,
+  "table_privilege:product_variants.authenticated.UPDATE": false,
+  "table_privilege:product_variants.service_role.TRIGGER": true,
+  "trigger:newsletter_subscribers.subscribers_updated_at": "2b83a777db7e7b130726b0bf23c6b424",
+  "constraint:payment_events.payment_events_order_id_fkey": "3d7b3918120a840f273d7ebad2f66bfd",
+  "table_privilege:admin_sessions.service_role.REFERENCES": true,
+  "table_privilege:analytics_events.authenticated.TRIGGER": true,
+  "table_privilege:analytics_events.service_role.TRUNCATE": true,
+  "table_privilege:api_rate_limits.authenticated.TRUNCATE": true,
+  "table_privilege:customer_addresses.service_role.DELETE": true,
+  "table_privilege:customer_addresses.service_role.INSERT": true,
+  "table_privilege:customer_addresses.service_role.SELECT": true,
+  "table_privilege:customer_addresses.service_role.UPDATE": true,
+  "table_privilege:newsletter_subscribers.anon.REFERENCES": true,
+  "table_privilege:notifications.authenticated.REFERENCES": true,
+  "table_privilege:payment_events.service_role.REFERENCES": true,
+  "table_privilege:product_variants.authenticated.TRIGGER": true,
+  "table_privilege:product_variants.service_role.TRUNCATE": true,
+  "constraint:inventory_movements.inventory_movements_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:marketing_campaigns.marketing_campaigns_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:operational_records.operational_records_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:order_status_events.order_status_events_pkey": "4c6419b3704337bbfe50f018842a9ad3",
+  "constraint:orders.orders_stripe_checkout_session_id_key": "eb15d74653b6bdcb910ecf3f52bd9f4d",
+  "table_privilege:admin_sessions.authenticated.REFERENCES": false,
+  "table_privilege:analytics_events.authenticated.TRUNCATE": true,
+  "table_privilege:api_rate_limits.service_role.REFERENCES": true,
+  "table_privilege:customer_addresses.authenticated.DELETE": false,
+  "table_privilege:customer_addresses.authenticated.INSERT": false,
+  "table_privilege:customer_addresses.authenticated.SELECT": true,
+  "table_privilege:customer_addresses.authenticated.UPDATE": false,
+  "table_privilege:customer_addresses.service_role.TRIGGER": true,
+  "table_privilege:inventory_movements.service_role.DELETE": true,
+  "table_privilege:inventory_movements.service_role.INSERT": true,
+  "table_privilege:inventory_movements.service_role.SELECT": true,
+  "table_privilege:inventory_movements.service_role.UPDATE": true,
+  "table_privilege:marketing_campaigns.service_role.DELETE": true,
+  "table_privilege:marketing_campaigns.service_role.INSERT": true,
+  "table_privilege:marketing_campaigns.service_role.SELECT": true,
+  "table_privilege:marketing_campaigns.service_role.UPDATE": true,
+  "table_privilege:operational_records.service_role.DELETE": true,
+  "table_privilege:operational_records.service_role.INSERT": true,
+  "table_privilege:operational_records.service_role.SELECT": true,
+  "table_privilege:operational_records.service_role.UPDATE": true,
+  "table_privilege:order_status_events.service_role.DELETE": true,
+  "table_privilege:order_status_events.service_role.INSERT": true,
+  "table_privilege:order_status_events.service_role.SELECT": true,
+  "table_privilege:order_status_events.service_role.UPDATE": true,
+  "table_privilege:payment_events.authenticated.REFERENCES": true,
+  "table_privilege:product_variants.authenticated.TRUNCATE": true,
+  "index:newsletter_subscribers.newsletter_subscribers_pkey": "a25127192e8672874f8d2be5d1b6bc37",
+  "index:operational_records.operational_records_module_idx": "4fe9b520294967b041ff991e32a4427b",
+  "table_privilege:analytics_events.service_role.REFERENCES": true,
+  "table_privilege:api_rate_limits.authenticated.REFERENCES": true,
+  "table_privilege:customer_addresses.authenticated.TRIGGER": true,
+  "table_privilege:customer_addresses.service_role.TRUNCATE": true,
+  "table_privilege:inventory_movements.authenticated.DELETE": false,
+  "table_privilege:inventory_movements.authenticated.INSERT": false,
+  "table_privilege:inventory_movements.authenticated.SELECT": false,
+  "table_privilege:inventory_movements.authenticated.UPDATE": false,
+  "table_privilege:inventory_movements.service_role.TRIGGER": true,
+  "table_privilege:marketing_campaigns.authenticated.DELETE": false,
+  "table_privilege:marketing_campaigns.authenticated.INSERT": false,
+  "table_privilege:marketing_campaigns.authenticated.SELECT": true,
+  "table_privilege:marketing_campaigns.authenticated.UPDATE": false,
+  "table_privilege:marketing_campaigns.service_role.TRIGGER": true,
+  "table_privilege:operational_records.authenticated.DELETE": false,
+  "table_privilege:operational_records.authenticated.INSERT": false,
+  "table_privilege:operational_records.authenticated.SELECT": false,
+  "table_privilege:operational_records.authenticated.UPDATE": false,
+  "table_privilege:operational_records.service_role.TRIGGER": true,
+  "table_privilege:order_status_events.authenticated.DELETE": false,
+  "table_privilege:order_status_events.authenticated.INSERT": false,
+  "table_privilege:order_status_events.authenticated.SELECT": true,
+  "table_privilege:order_status_events.authenticated.UPDATE": false,
+  "table_privilege:order_status_events.service_role.TRIGGER": true,
+  "table_privilege:product_variants.service_role.REFERENCES": true,
+  "trigger:customer_addresses.customer_addresses_updated_at": "03d06107a0fe90a74283206e84917888",
+  "constraint:order_items.order_items_line_total_cents_check": "eb0f14ba530313038f2b1609772e5798",
+  "constraint:order_items.order_items_unit_price_cents_check": "f611d5276579a2181341465e4b9bce18",
+  "index:inventory_movements.inventory_movements_variant_idx": "6d8af1ec0ae5395a6674c829f7ec3f4d",
+  "index:marketing_campaigns.marketing_campaigns_created_idx": "8e80fc5ac3cf9155fec31100582ba1c1",
+  "index:payment_events.payment_events_provider_event_id_key": "f08f2547c883f617838b97324d6dd1ac",
+  "policy:public.customer_addresses.Users read own addresses": {
+    "roles": ["public"],
+    "command": "SELECT",
+    "check_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "permissive": "PERMISSIVE",
+    "using_hash": "6af153ac401c7672c3dd0388fce6cd4a"
+  },
+  "table_privilege:analytics_events.authenticated.REFERENCES": true,
+  "table_privilege:customer_addresses.authenticated.TRUNCATE": true,
+  "table_privilege:inventory_movements.authenticated.TRIGGER": false,
+  "table_privilege:inventory_movements.service_role.TRUNCATE": true,
+  "table_privilege:marketing_campaigns.authenticated.TRIGGER": true,
+  "table_privilege:marketing_campaigns.service_role.TRUNCATE": true,
+  "table_privilege:operational_records.authenticated.TRIGGER": false,
+  "table_privilege:operational_records.service_role.TRUNCATE": true,
+  "table_privilege:order_status_events.authenticated.TRIGGER": true,
+  "table_privilege:order_status_events.service_role.TRUNCATE": true,
+  "table_privilege:product_variants.authenticated.REFERENCES": true,
+  "table_privilege:customer_addresses.service_role.REFERENCES": true,
+  "table_privilege:inventory_movements.authenticated.TRUNCATE": false,
+  "table_privilege:marketing_campaigns.authenticated.TRUNCATE": true,
+  "table_privilege:newsletter_subscribers.service_role.DELETE": true,
+  "table_privilege:newsletter_subscribers.service_role.INSERT": true,
+  "table_privilege:newsletter_subscribers.service_role.SELECT": true,
+  "table_privilege:newsletter_subscribers.service_role.UPDATE": true,
+  "table_privilege:operational_records.authenticated.TRUNCATE": false,
+  "table_privilege:order_status_events.authenticated.TRUNCATE": true,
+  "trigger:marketing_campaigns.marketing_campaigns_updated_at": "d659f3b793ef4ad4e426ce37077121a5",
+  "trigger:operational_records.operational_records_updated_at": "b4f46c0d76f8ac6e436ebbae65c4ec52",
+  "constraint:admin_sessions.admin_sessions_session_hash_check": "a0e492241082b106a426296341d831a9",
+  "index:customer_addresses.customer_addresses_one_default_idx": "d0234289e95ee7b29126e4b9769ca8ee",
+  "policy:public.product_variants.Public reads active variants": {
+    "roles": ["public"],
+    "command": "SELECT",
+    "check_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "permissive": "PERMISSIVE",
+    "using_hash": "c06d9dd3350752a376fb0a5f6ecda4e1"
+  },
+  "table_privilege:customer_addresses.authenticated.REFERENCES": true,
+  "table_privilege:inventory_movements.service_role.REFERENCES": true,
+  "table_privilege:marketing_campaigns.service_role.REFERENCES": true,
+  "table_privilege:newsletter_subscribers.authenticated.DELETE": false,
+  "table_privilege:newsletter_subscribers.authenticated.INSERT": false,
+  "table_privilege:newsletter_subscribers.authenticated.SELECT": true,
+  "table_privilege:newsletter_subscribers.authenticated.UPDATE": false,
+  "table_privilege:newsletter_subscribers.service_role.TRIGGER": true,
+  "table_privilege:operational_records.service_role.REFERENCES": true,
+  "table_privilege:order_status_events.service_role.REFERENCES": true,
+  "constraint:payment_events.payment_events_attempt_count_check": "52bebe232f6fb93cab873592284533e4",
+  "constraint:product_variants.product_variants_product_id_fkey": "a8022d13a0749189c857e5b6c1733374",
+  "table_privilege:inventory_movements.authenticated.REFERENCES": false,
+  "table_privilege:marketing_campaigns.authenticated.REFERENCES": true,
+  "table_privilege:newsletter_subscribers.authenticated.TRIGGER": true,
+  "table_privilege:newsletter_subscribers.service_role.TRUNCATE": true,
+  "table_privilege:operational_records.authenticated.REFERENCES": false,
+  "table_privilege:order_status_events.authenticated.REFERENCES": true,
+  "constraint:customer_addresses.customer_addresses_user_id_fkey": "85d8b2f5f0c0f6b4dcb854efb61a8cb1",
+  "constraint:newsletter_subscribers.newsletter_subscribers_pkey": "3ffed38f7ff76adc736bcaa34a088c33",
+  "function:update_customer_profile(uuid,text,text,text,boolean)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "21d45fbbb2f76707c8c9df10ae4f705b",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "index:newsletter_subscribers.newsletter_unsubscribe_token_idx": "6bc6ebcb4986f8096f4dd30fed43e39b",
+  "policy:public.order_status_events.Users read own order events": {
+    "roles": ["public"],
+    "command": "SELECT",
+    "check_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "permissive": "PERMISSIVE",
+    "using_hash": "007f4f4ea4a1fc3264947b08fbf39f6c"
+  },
+  "table_privilege:newsletter_subscribers.authenticated.TRUNCATE": true,
+  "constraint:customer_addresses.customer_addresses_country_check": "cb4619b9ac760d15826c649be4d2d794",
+  "constraint:payment_events.payment_events_provider_event_id_key": "d7d65505f4752d428a3f7d4b9bd13e5a",
+  "constraint:product_variants.product_variants_price_cents_check": "74d8f6d35c02a8bd5fdc0dae96afad3d",
+  "index:newsletter_subscribers.newsletter_confirmation_token_idx": "a0de8f05b0cc93c7ee537e17be62c0d9",
+  "table_privilege:newsletter_subscribers.service_role.REFERENCES": true,
+  "constraint:customer_addresses.customer_addresses_province_check": "9c8011f2eda7d17af4ea932453197051",
+  "constraint:inventory_movements.inventory_movements_reason_check": "3af992a7990794546976a7b9acf45fbc",
+  "constraint:marketing_campaigns.marketing_campaigns_status_check": "db7bcb4acd1c0a95639d081b9121f97b",
+  "constraint:operational_records.operational_records_module_check": "077dfcb1e58b1990e593a3a4b887b0fa",
+  "constraint:product_variants.product_variants_weight_grams_check": "c2055d1e4b6850cad2ec375b5061b58c",
+  "table_privilege:newsletter_subscribers.authenticated.REFERENCES": true,
+  "constraint:inventory_movements.inventory_movements_order_id_fkey": "3d7b3918120a840f273d7ebad2f66bfd",
+  "constraint:order_status_events.order_status_events_order_id_fkey": "25aa7307969164af40ae7aa4a4b0d54e",
+  "constraint:product_variants.product_variants_stock_on_hand_check": "272b7bd0f3d93a8017e37e1ccf032f1f",
+  "constraint:inventory_movements.inventory_movements_variant_id_fkey": "615b6ec8c2d7bfa46527b06c93a88d3e",
+  "constraint:newsletter_subscribers.newsletter_subscribers_status_check": "d0fb1f65755b9d88eda83e72a115e51b",
+  "constraint:inventory_movements.inventory_movements_quantity_delta_check": "a045f6970adb90eae8aabf92b7ebb8a3",
+  "function:register_admin_session(text,timestamp with time zone,boolean,text)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "2490dd399d58332e901dc0cf72027b69",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:reserve_order(uuid,text,jsonb,text,jsonb,integer,integer,integer,integer)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "2078bda3d708ff4bb3038e36f0e4b941",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:admin_update_variant(text,text,text,integer,integer,integer,integer,boolean)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "014f60b0b70a7fb5493e02253e746958",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  },
+  "function:complete_order_payment(uuid,text,text,text,integer,integer,integer,integer,jsonb)": {
+    "settings": ["search_path=public"],
+    "anon_execute": false,
+    "definition_hash": "28659e3e9c2c19172b3083e08ccbaf34",
+    "service_execute": true,
+    "security_definer": true,
+    "authenticated_execute": false
+  }
+}

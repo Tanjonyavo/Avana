@@ -1,0 +1,126 @@
+{
+  "$schema": "https://docs.oasis-open.org/sarif/sarif/v2.1.0/os/schemas/sarif-schema-2.1.0.json",
+  "runs": [
+    {
+      "automationDetails": {
+        "id": "120c1121-14be-4fa6-88a7-c8e323635ff1"
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true,
+          "toolExecutionNotifications": []
+        }
+      ],
+      "properties": {
+        "codexSecurityCoverageCompleteness": "partial",
+        "codexSecuritySchemaVersion": "1.0",
+        "codexSecurityTargetKind": "directory_snapshot"
+      },
+      "results": [
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "message": {
+                "text": "root_control"
+              },
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "app/api/admin/logout/route.ts"
+                },
+                "region": {
+                  "endLine": 20,
+                  "startLine": 18
+                }
+              }
+            },
+            {
+              "message": {
+                "text": "entrypoint"
+              },
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lib/server/admin-request.ts"
+                },
+                "region": {
+                  "endLine": 12,
+                  "startLine": 6
+                }
+              }
+            },
+            {
+              "message": {
+                "text": "propagation"
+              },
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "lib/admin-auth.ts"
+                },
+                "region": {
+                  "endLine": 93,
+                  "startLine": 70
+                }
+              }
+            },
+            {
+              "message": {
+                "text": "sink"
+              },
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "app/api/admin/orders/export/route.ts"
+                },
+                "region": {
+                  "endLine": 10,
+                  "startLine": 6
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Administrator logout leaves copied session tokens valid\n\nLogging out clears the administrator's browser cookie but does not revoke its server-side authority. An attacker who already copied a valid token can retain access to admin data and mutations until the original two-hour expiry.\n\nSeverity: medium\n\nCategory: Authentication\n\nWeaknesses: CWE-613\n\nRemediation:\nPersist hashed administrator session identifiers with expiry/revocation state, require an active session in page/API guards, and revoke it before confirming logout. Review and approve the persistent-session architecture and deployment migration first.\n\nRemediation tests:\n- A token accepted before logout is rejected by page and API guards immediately afterward.\n- Failure of revocation storage must not silently authorize a revoked session.\n\nPreventive controls:\n- Retain HttpOnly/Secure/SameSite protections, TOTP login, short expiration and credential rotation."
+          },
+          "partialFingerprints": {
+            "codexSecurity/v1": "codex-security/v1:sha256:a42a5b39e48c9f7ff02181573a4543c6ff154a203a750b88d626bf103e130b17"
+          },
+          "properties": {
+            "category": "authentication",
+            "confidence": "high",
+            "findingId": "csf_320244b8b927548f48879ef2",
+            "occurrenceId": "occ_0dc7623320d576a4f0916e41",
+            "severity": "medium"
+          },
+          "ruleId": "authentication.admin-session-revocation",
+          "ruleIndex": 0
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "Codex Security",
+          "rules": [
+            {
+              "fullDescription": {
+                "text": "Authentication: Admin session revocation. Categories: Authentication. Weaknesses: CWE-613."
+              },
+              "help": {
+                "markdown": "Authentication: Admin session revocation. Categories: Authentication. Weaknesses: CWE-613.\n\n## Remediation\n\nPersist hashed administrator session identifiers with expiry/revocation state, require an active session in page/API guards, and revoke it before confirming logout. Review and approve the persistent-session architecture and deployment migration first.",
+                "text": "Authentication: Admin session revocation. Categories: Authentication. Weaknesses: CWE-613.\n\nRemediation:\n\nPersist hashed administrator session identifiers with expiry/revocation state, require an active session in page/API guards, and revoke it before confirming logout. Review and approve the persistent-session architecture and deployment migration first."
+              },
+              "id": "authentication.admin-session-revocation",
+              "name": "Authentication: Admin session revocation",
+              "properties": {
+                "security-severity": "5.0",
+                "tags": ["authentication", "external/cwe/cwe-613", "security"]
+              },
+              "shortDescription": {
+                "text": "Authentication: Admin session revocation"
+              }
+            }
+          ],
+          "version": "0.1.24"
+        }
+      }
+    }
+  ],
+  "version": "2.1.0"
+}

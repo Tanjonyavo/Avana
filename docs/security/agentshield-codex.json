@@ -1,0 +1,62 @@
+{
+  "tool": "ecc-agentshield",
+  "version": "1.6.0",
+  "timestamp": "2026-09-15T01:51:24.340Z",
+  "rawSummary": {
+    "totalFindings": 5895,
+    "critical": 1146,
+    "high": 721,
+    "medium": 1265,
+    "low": 2723,
+    "info": 40,
+    "filesScanned": 1709,
+    "autoFixable": 35,
+    "defenses": 90
+  },
+  "scope": "Codex configuration and installed/cached plugins; totals include inactive examples",
+  "activeConfigurationFindings": [
+    {
+      "category": "mcp",
+      "title": "MCP server \"chrome-devtools\" uses npx -y (auto-install)",
+      "file": "plugins/cache/ecc/ecc/2.2.1/.mcp.json",
+      "severity": "medium"
+    },
+    {
+      "category": "misconfiguration",
+      "title": "No PreToolUse security hooks configured",
+      "file": "plugins/cache/ecc/ecc/2.2.1/hooks/codex-hooks.json",
+      "severity": "medium"
+    },
+    {
+      "category": "hooks",
+      "title": "Hook has 31 chained commands",
+      "file": "plugins/cache/ecc/ecc/2.2.1/hooks/codex-hooks.json",
+      "severity": "medium"
+    },
+    {
+      "category": "hooks",
+      "title": "SessionStart hook runs a 1177-character inline payload",
+      "file": "plugins/cache/ecc/ecc/2.2.1/hooks/codex-hooks.json",
+      "severity": "medium",
+      "line": 4
+    },
+    {
+      "category": "misconfiguration",
+      "title": "No Stop hooks for session-end verification",
+      "file": "plugins/cache/ecc/ecc/2.2.1/hooks/codex-hooks.json",
+      "severity": "low"
+    },
+    {
+      "category": "misconfiguration",
+      "title": "MCP server \"transcodes-guard\" has no description",
+      "file": "plugins/cache/bigstrider/transcodes-guard/0.87.0/.mcp.json",
+      "severity": "info"
+    },
+    {
+      "category": "misconfiguration",
+      "title": "MCP server \"chrome-devtools\" has no description",
+      "file": "plugins/cache/ecc/ecc/2.2.1/.mcp.json",
+      "severity": "info"
+    }
+  ]
+}

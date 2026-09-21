@@ -1,0 +1,119 @@
+{
+  "tool": "ecc-agentshield",
+  "version": "1.6.0",
+  "stage": "before",
+  "timestamp": "2026-09-15T01:51:17.991Z",
+  "rawSummary": {
+    "totalFindings": 525,
+    "critical": 515,
+    "high": 3,
+    "medium": 6,
+    "low": 1,
+    "info": 0,
+    "filesScanned": 5,
+    "autoFixable": 0,
+    "defenses": 0
+  },
+  "score": {
+    "grade": "C",
+    "numericScore": 60,
+    "breakdown": {
+      "secrets": 0,
+      "permissions": 100,
+      "hooks": 100,
+      "mcp": 100,
+      "agents": 0
+    }
+  },
+  "triage": {
+    "npmIntegrityFalsePositives": 513,
+    "promptHeuristics": 12,
+    "confirmedRepositoryExploits": 0
+  },
+  "nonIntegrityFindings": [
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Instruction boundary defense",
+      "file": "CLAUDE.md",
+      "severity": "critical",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Data leakage defense",
+      "file": "CLAUDE.md",
+      "severity": "critical",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Role boundary defense",
+      "file": "CLAUDE.md",
+      "severity": "high",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Indirect injection defense",
+      "file": "CLAUDE.md",
+      "severity": "high",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Harmful content defense",
+      "file": "CLAUDE.md",
+      "severity": "high",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Output control defense",
+      "file": "CLAUDE.md",
+      "severity": "medium",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Multi-language bypass defense",
+      "file": "CLAUDE.md",
+      "severity": "medium",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Unicode and encoding defense",
+      "file": "CLAUDE.md",
+      "severity": "medium",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Context overflow defense",
+      "file": "CLAUDE.md",
+      "severity": "medium",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Social engineering defense",
+      "file": "CLAUDE.md",
+      "severity": "medium",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Input validation defense",
+      "file": "CLAUDE.md",
+      "severity": "medium",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    },
+    {
+      "category": "injection",
+      "title": "Missing prompt defense: Abuse prevention defense",
+      "file": "CLAUDE.md",
+      "severity": "low",
+      "disposition": "Instruction-hygiene heuristic; no executable attack path demonstrated"
+    }
+  ]
+}

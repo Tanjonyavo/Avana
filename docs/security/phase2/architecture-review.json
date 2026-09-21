@@ -1,0 +1,251 @@
+{
+  "threatModel": {
+    "summary": "Targeted phase 2 model for AVANA's Next.js commerce application: administrators authenticate with password and production TOTP, receive a signed two-hour cookie, and require a matching active Supabase session record before protected page reads or API operations. Commerce uses service-role SQL transactions for reservations, payment completion and refunds, with Stripe-confirmed payment data. Development permits an unauthenticated page demo only when neither admin authentication nor privileged Supabase access is configured. CI includes real PostgreSQL concurrency validation and an aggregate Security gate. Evidence: lib/admin-auth.ts:47, lib/admin-auth.ts:61, lib/server/admin-session.ts:12, lib/server/admin-page.ts:8, lib/server/orders.ts:188, lib/server/stripe-checkout.ts:22, .github/workflows/ci.yml:12. This independent review inspected source offline; it did not execute tests or establish remote deployment state.",
+    "assets": [
+      "Administrator authority represented by the avana_admin_session cookie and SHA-256-keyed public.admin_sessions records containing MFA, expiry and revocation state; signing authority derives from SESSION_SECRET, ADMIN_PASSWORD and ADMIN_TOTP_SECRET. Evidence: lib/admin-auth.ts:1, lib/admin-auth.ts:24, lib/server/admin-session.ts:6, supabase/migrations/20260914010000_admin_sessions.sql:3.",
+      "Supabase service-role capability, which accesses session records and performs privileged commerce RPCs through the project selected by SUPABASE_URL, falling back to NEXT_PUBLIC_SUPABASE_URL. Actual deployment values were not inspected. Evidence: lib/server/supabase-admin.ts:7.",
+      "Stock availability, reservation ownership, immutable checkout-attempt binding, payment totals and exactly-once sale/refund inventory effects. Evidence: supabase/commerce.sql:86, supabase/commerce.sql:525, supabase/commerce.sql:760, supabase/commerce.sql:1024.",
+      "Stripe account authority from STRIPE_SECRET_KEY and webhook verification authority from STRIPE_WEBHOOK_SECRET; order/customer/shipping data crosses this provider boundary. Evidence: lib/server/stripe.ts:12, app/api/checkout/session/route.ts:78, app/api/webhooks/stripe/route.ts:112.",
+      "Validation integrity: disposable local PostgreSQL databases, schema fingerprints written to docs/security/phase2/local-schema.json, and CI results consumed by Security gate. Evidence: scripts/test-postgres-concurrency.mjs:24, scripts/test-postgres-concurrency.mjs:62, .github/workflows/ci.yml:17."
+    ],
+    "trustBoundaries": [
+      "Browser to administrator login: origin validation, bounded strict JSON, six login attempts per 15 minutes, password verification, production TOTP and a 90-second OTP replay restriction precede session registration. A cookie is issued only after successful registration; it is HttpOnly, SameSite=Strict and Secure in production. Evidence: app/api/admin/login/route.ts:37, app/api/admin/login/route.ts:45, app/api/admin/login/route.ts:53, app/api/admin/login/route.ts:65, app/api/admin/login/route.ts:78, app/api/admin/login/route.ts:96.",
+      "Cookie possession to administrator authority: signature and expiry verification precede a fresh is_admin_session_active RPC; database errors deny access. Production requires the persisted MFA flag. The page guard runs before representative dashboard and operational reads, and the API guard adds origin validation for mutations. The proxy checks only signatures, so protected pages and APIs remain independently responsible for active-session enforcement. Evidence: lib/server/admin-session.ts:12, lib/server/admin-page.ts:8, app/admin/page.tsx:13, app/admin/[section]/page.tsx:64, lib/server/admin-request.ts:7, proxy.ts:98.",
+      "Server to session registry: register_admin_session inserts a new token hash and revokes the previous hash in one transaction; expired authority older than seven days is pruned. RLS and grants deny public, anon and authenticated access while permitting service_role. Logout records an audit event only when revoke_admin_session reports a real transition; a database error returns 503 and retains the cookie for retry. Evidence: supabase/migrations/20260914010000_admin_sessions.sql:12, supabase/migrations/20260914010000_admin_sessions.sql:16, supabase/migrations/20260914010000_admin_sessions.sql:40, supabase/migrations/20260914010000_admin_sessions.sql:49, lib/server/admin-session.ts:42, app/api/admin/logout/route.ts:14, app/api/admin/logout/route.ts:24.",
+      "Guest checkout input to reserved inventory: the public route requires enabled/configured commerce, origin, request-size/schema checks and IP/email quotas; its server RPC supplies catalogue-based prices and configured shipping. SQL serializes checkout attempts with an advisory lock, binds retries to the request hash, locks variants in identifier order, rejects insufficient stock, and reserves atomically. Server reservation duration defaults to 40 minutes including grace and is bounded to 40–130 minutes; SQL independently bounds supplied duration to 30–180 minutes. Evidence: app/api/checkout/session/route.ts:23, app/api/checkout/session/route.ts:37, app/api/checkout/session/route.ts:61, lib/server/orders.ts:188, lib/server/config.ts:62, supabase/commerce.sql:525, supabase/commerce.sql:585, supabase/commerce.sql:588, supabase/commerce.sql:615.",
+      "Stripe state to payment/inventory mutation: webhooks verify signature and configured live/test mode; reconciliation retrieves sessions through the configured Stripe client. Fulfillment requires payment mode, paid/no-payment-required status, CAD, matching metadata/client reference and Canadian shipping. SQL locks the order, requires its attached session and expected subtotal/shipping, and makes repeated payment inventory effects idempotent. Lower final totals are explicitly represented as discounts; configured Checkout permits promotion codes. Evidence: app/api/webhooks/stripe/route.ts:112, app/api/webhooks/stripe/route.ts:132, lib/server/stripe-checkout.ts:22, lib/server/stripe-checkout.ts:111, supabase/commerce.sql:760, supabase/commerce.sql:783, app/api/checkout/session/route.ts:78.",
+      "Administrator or provider refund result to restocking: the representative refund API requires active-session/origin authorization, checks remaining refundable value, calls Stripe with an order/refunded-total idempotency key, and updates SQL only on succeeded status. SQL locks the order and uses restocked_at to prevent repeated restocking. These SQL routines are restricted to service_role. Evidence: app/api/admin/orders/[id]/refund/route.ts:16, app/api/admin/orders/[id]/refund/route.ts:40, app/api/admin/orders/[id]/refund/route.ts:59, app/api/admin/orders/[id]/refund/route.ts:74, supabase/commerce.sql:1008, supabase/commerce.sql:1024, supabase/commerce.sql:1664, supabase/commerce.sql:1693.",
+      "Cron bearer authority to reconciliation: CRON_SECRET verification protects the route. Reconciliation processes at most 50 expired pending orders per default invocation with up to five workers; it fulfills paid sessions, expires open sessions before release, releases missing/expired sessions, and records other errors. Stripe uses a 20-second request timeout and two network retries. Evidence: app/api/cron/commerce/route.ts:20, app/api/cron/commerce/route.ts:30, lib/server/stripe-checkout.ts:84, lib/server/stripe-checkout.ts:104, lib/server/stripe-checkout.ts:111, lib/server/stripe-checkout.ts:127, lib/server/stripe-checkout.ts:139, lib/server/stripe.ts:12.",
+      "Developer/CI to PostgreSQL validation: the runner accepts a loopback host and the dedicated avana_security_test entry database, creates a generated avana_test_<UUID> database, installs platform prerequisites and repository SQL/migrations, then uses observer plus two service-role connections. overlap() observes a real PostgreSQL lock wait before committing the first transaction. Tests cover last-unit contention, same-attempt retries, duplicate payment/refund effects and cross-connection revocation visibility. Evidence: scripts/test-postgres-concurrency.mjs:7, scripts/test-postgres-concurrency.mjs:24, scripts/test-postgres-concurrency.mjs:30, scripts/test-postgres-concurrency.mjs:54, scripts/test-postgres-concurrency.mjs:68, scripts/test-postgres-concurrency.mjs:96, scripts/test-postgres-concurrency.mjs:119, scripts/test-postgres-concurrency.mjs:142, scripts/test-postgres-concurrency.mjs:161, scripts/test-postgres-concurrency.mjs:173, scripts/test-postgres-concurrency.mjs:216.",
+      "Operator-exported staging metadata to local comparison: schema-fingerprint.sql reads selected application schema/security metadata, function-definition hashes, storage policies and bucket settings. The comparison script reads two operator-supplied JSON files, canonicalizes keys, reports missing/extra/different facts and exits nonzero for mismatches or invalid input; neither script configures a remote connection. CI independently requires successful quality, PostgreSQL and browser jobs, but merge blocking depends on hosted branch rules. Evidence: supabase/tests/schema-fingerprint.sql:1, supabase/tests/schema-fingerprint.sql:3, supabase/tests/schema-fingerprint.sql:30, supabase/tests/schema-fingerprint.sql:41, supabase/tests/schema-fingerprint.sql:54, scripts/compare-supabase-schema.mjs:3, scripts/compare-supabase-schema.mjs:22, scripts/compare-supabase-schema.mjs:46, .github/workflows/ci.yml:12."
+    ],
+    "attackerCapabilities": [
+      "An unauthenticated visitor can submit login attempts, arbitrary cookies and guest checkout requests, including concurrent/repeated requests; this does not grant database service-role, signing-secret or Stripe authority. Existing login, session-registry and checkout controls constrain these inputs. Evidence: app/api/admin/login/route.ts:37, lib/server/admin-session.ts:12, app/api/checkout/session/route.ts:23.",
+      "A holder of a previously copied valid admin token can replay it until expiry or revocation; successful reuse after committed logout would restore terminated administrator authority. The current guard requires an active database record, and revocation affects that record. Evidence: lib/server/admin-session.ts:12, supabase/migrations/20260914010000_admin_sessions.sql:32, supabase/migrations/20260914010000_admin_sessions.sql:40.",
+      "An attacker can send forged webhook requests or cause legitimate retries, but cannot synthesize accepted provider events without the webhook secret. Duplicate legitimate deliveries can contend on SQL state; the reviewed functions lock the order and suppress repeated inventory effects. Evidence: app/api/webhooks/stripe/route.ts:112, supabase/commerce.sql:760, supabase/commerce.sql:1024.",
+      "A contributor can propose code/workflow changes that execute in CI. Repository modification alone does not establish permission to bypass protected-branch checks or access deployment secrets. CI declares contents:read and disables persisted checkout credentials. Evidence: .github/workflows/ci.yml:3, .github/workflows/ci.yml:8, .github/workflows/ci.yml:29."
+    ],
+    "securityObjectives": [
+      "User-provided requirement: committed logout, credential rotation and expired sessions must terminate administrator authority across application instances; revocation-store failure must deny protected requests and must not report confirmed logout. Current enforcement: lib/admin-auth.ts:24, lib/admin-auth.ts:69, lib/server/admin-session.ts:12, app/api/admin/logout/route.ts:14.",
+      "User-provided requirement: prove concurrency with independent PostgreSQL connections and actual overlapping lock contention; prevent overselling and duplicate reservation/payment/restock effects. The source harness implements these scenarios, but this reviewer did not run it. Evidence: scripts/test-postgres-concurrency.mjs:96, scripts/test-postgres-concurrency.mjs:119, scripts/test-postgres-concurrency.mjs:142.",
+      "User-provided requirement: prepare remote Supabase/Stripe staging validation without performing external mutations. Keep local destructive test prerequisites restricted to disposable local PostgreSQL; use exported staging fingerprints for offline comparison. Evidence: scripts/test-postgres-concurrency.mjs:7, scripts/test-postgres-concurrency.mjs:74, supabase/tests/schema-fingerprint.sql:1, scripts/compare-supabase-schema.mjs:22.",
+      "User-provided requirement: CI must block when any mandatory validation fails or is skipped. The aggregate Security gate enforces successful dependency results; hosted required-check policy must independently enforce its result. Evidence: .github/workflows/ci.yml:12, .github/workflows/ci.yml:17, .github/workflows/ci.yml:24.",
+      "Inherited repository policy requires separate development/staging/production projects and secrets, protected main with required CI/review, and real cloud configuration validation before reopening. Evidence: SECURITY.md:39, SECURITY.md:41, SECURITY.md:62."
+    ],
+    "assumptions": [
+      "Nearest applicable policy is repository-root SECURITY.md; offline inventory found no nested SECURITY.md. Its P0/P1 examples prioritize administrator compromise, payment bypass and incorrect webhooks. Evidence: SECURITY.md:11.",
+      "Remote Supabase project identity, applied migrations/grants, PostgREST exposure, Auth/Storage HTTP behavior, Stripe account/webhook mode and branch protection were not inspected. No credential values or external configurations are inferred.",
+      "Fresh SQL and migration-based startup must converge on schema version 6. The test harness applies commerce.sql, submissions.sql, then every migration in filename order; security_v2 replaces reservation/session-attachment functions with the reviewed equivalent locking controls, and the session migration sets version 6. Evidence: scripts/test-postgres-concurrency.mjs:54, supabase/migrations/20260911000000_security_v2.sql:37, supabase/migrations/20260911000000_security_v2.sql:77, supabase/migrations/20260911000000_security_v2.sql:166, supabase/migrations/20260914010000_admin_sessions.sql:56, app/api/health/route.ts:12.",
+      "Observed documentation disagreement during review: README.md:42 still describes schema 5 and omits the session migration for existing databases, while current migration and health code require version 6. Parent context says README and the phase 2 checklist are being updated; final documentation must be checked after those edits. Evidence: README.md:42, supabase/migrations/20260914010000_admin_sessions.sql:56, app/api/health/route.ts:12.",
+      "Historical docs/security/api-matrix.md:44 says centralized session revocation is not demonstrated. Current source now establishes it. Parent context designates that document as a historical phase 1 report, to be explicitly identified as such. Evidence: docs/security/api-matrix.md:44, lib/server/admin-session.ts:12, supabase/migrations/20260914010000_admin_sessions.sql:40.",
+      "Schema fingerprint equality is limited to collected facts. It does not prove role membership/attributes, Supabase JWT verification, Auth settings, Storage HTTP authorization, Stripe behavior or branch protection. The exporter includes all non-extension public functions but only its listed application tables, so legitimate platform differences may require interpretation. Evidence: supabase/tests/schema-fingerprint.sql:3, supabase/tests/schema-fingerprint.sql:36, supabase/tests/schema-fingerprint.sql:41.",
+      "Real PostgreSQL source tests establish a suitable validation mechanism, not a completed staging run. Their duplicate payment and refund scenarios are separate phases; they do not cover every payment-versus-release, concurrent-cron, multi-item or provider/database race. Evidence: scripts/test-postgres-concurrency.mjs:173, supabase/tests/README.md:18.",
+      "Loopback restriction and generated database names reduce accidental test targeting; operators must still provide a disposable PostgreSQL service. Loopback can point through an operator-created tunnel, and test roles are cluster-wide. Evidence: scripts/test-postgres-concurrency.mjs:7, scripts/test-postgres-concurrency.mjs:24, scripts/test-postgres-concurrency.mjs:30.",
+      "Origin enforcement in production uses NEXT_PUBLIC_SITE_URL when configured, otherwise request origin; login IP quotas depend on hosting infrastructure supplying trustworthy forwarding headers. These are deployment prerequisites, not verified remote misconfigurations. Evidence: lib/server/request.ts:5, lib/server/rate-limit.ts:10.",
+      "Parent supplied a corrected logout-audit candidate during this review. Targeted reread confirmed boolean transition reporting and auditing only when revoked is true. Added tests were reported by the parent and were not independently executed here. Evidence: lib/server/admin-session.ts:42, app/api/admin/logout/route.ts:24, supabase/migrations/20260914010000_admin_sessions.sql:40."
+    ]
+  },
+  "effectiveResources": [
+    {
+      "consumer": "Admin cookie issuer/verifier",
+      "deployment": "Configured application; production adds mandatory TOTP and Secure cookie",
+      "configurationChain": "SESSION_SECRET plus ADMIN_PASSWORD plus ADMIN_TOTP_SECRET -> HMAC signing key -> two-hour signed token",
+      "effectiveValue": "Browser cookie avana_admin_session; path /; HttpOnly; SameSite=Strict; Secure in production",
+      "recipients": "Administrator browser and application server",
+      "enforcingControl": "Signature/expiry verification plus active persisted session lookup",
+      "evidence": [
+        "lib/admin-auth.ts:24",
+        "lib/admin-auth.ts:61",
+        "app/api/admin/login/route.ts:96",
+        "lib/server/admin-session.ts:12"
+      ]
+    },
+    {
+      "consumer": "Admin session RPCs",
+      "deployment": "Configured Supabase-backed application",
+      "configurationChain": "SUPABASE_URL || NEXT_PUBLIC_SUPABASE_URL; SUPABASE_SERVICE_ROLE_KEY; public.admin_sessions",
+      "effectiveValue": "Selected project's public.admin_sessions, keyed by SHA-256 token hash; actual project identity unverified",
+      "recipients": "Server service-role client and privileged database functions",
+      "enforcingControl": "RLS; revoked public/anon/authenticated privileges; service-role RPC execution; MFA/expiry/revocation predicates",
+      "evidence": [
+        "lib/server/supabase-admin.ts:7",
+        "lib/server/admin-session.ts:6",
+        "supabase/migrations/20260914010000_admin_sessions.sql:12",
+        "supabase/migrations/20260914010000_admin_sessions.sql:32",
+        "supabase/migrations/20260914010000_admin_sessions.sql:49"
+      ]
+    },
+    {
+      "consumer": "Reservation/payment/refund SQL",
+      "deployment": "Fresh schema or existing-schema migration path",
+      "configurationChain": "Same selected Supabase project; catalogue rows and server commerceSettings -> privileged RPC arguments",
+      "effectiveValue": "public.orders, public.order_items, public.product_variants and public.inventory_movements; default reservation 40 minutes including grace",
+      "recipients": "Server service-role client; transactional SQL functions",
+      "enforcingControl": "Attempt advisory lock; ordered variant locks; order locks; stock constraints; idempotent status/restocked_at transitions",
+      "evidence": [
+        "lib/server/orders.ts:188",
+        "lib/server/config.ts:62",
+        "supabase/commerce.sql:525",
+        "supabase/commerce.sql:615",
+        "supabase/commerce.sql:760",
+        "supabase/commerce.sql:1024",
+        "supabase/migrations/20260911000000_security_v2.sql:77"
+      ]
+    },
+    {
+      "consumer": "Stripe checkout/reconciliation/refund client",
+      "deployment": "Configured application or separately authorized staging exercise",
+      "configurationChain": "STRIPE_SECRET_KEY -> Stripe SDK; STRIPE_WEBHOOK_SECRET -> webhook verification",
+      "effectiveValue": "Configured Stripe account; CAD Checkout restricted to CA shipping; timeout 20 seconds and two retries; default reconciliation batch 50 with five workers",
+      "recipients": "Stripe receives server-supplied order/customer data; application receives provider session/refund results",
+      "enforcingControl": "Secret-bearing server client, verified webhook signature/mode, order/session matching, paid-state checks; cron bearer or admin session guards at representative callers",
+      "evidence": [
+        "lib/server/stripe.ts:7",
+        "lib/server/stripe.ts:12",
+        "lib/server/stripe-checkout.ts:22",
+        "lib/server/stripe-checkout.ts:84",
+        "lib/server/stripe-checkout.ts:139",
+        "app/api/webhooks/stripe/route.ts:112",
+        "app/api/admin/orders/[id]/refund/route.ts:16"
+      ],
+      "missingImpactPrerequisite": "Actual account, test/live mode, webhook configuration and staging results remain unverified."
+    },
+    {
+      "consumer": "Real PostgreSQL concurrency runner",
+      "deployment": "Developer workstation or CI PostgreSQL job",
+      "configurationChain": "AVANA_TEST_POSTGRES_URL or postgres://postgres@127.0.0.1:55432/avana_security_test -> generated avana_test_<UUID> database",
+      "effectiveValue": "Three independent connections to the generated database; 10-second statement timeout; local fingerprint output docs/security/phase2/local-schema.json",
+      "recipients": "Runner, disposable PostgreSQL service and local workspace",
+      "enforcingControl": "Loopback/dedicated-entry-database assertions, generated database-name validation, service-role test connections, observed lock wait and cleanup",
+      "evidence": [
+        "scripts/test-postgres-concurrency.mjs:7",
+        "scripts/test-postgres-concurrency.mjs:24",
+        "scripts/test-postgres-concurrency.mjs:30",
+        "scripts/test-postgres-concurrency.mjs:62",
+        "scripts/test-postgres-concurrency.mjs:74",
+        "scripts/test-postgres-concurrency.mjs:96",
+        ".github/workflows/ci.yml:54",
+        ".github/workflows/ci.yml:58"
+      ],
+      "missingImpactPrerequisite": "Operator must ensure the loopback service is disposable and not a remote tunnel."
+    },
+    {
+      "consumer": "Staging schema exporter and offline comparer",
+      "deployment": "Operator-authorized staging read/export followed by local comparison",
+      "configurationChain": "schema-fingerprint.sql on selected database -> exported JSON; two explicit CLI file paths -> compare-supabase-schema.mjs",
+      "effectiveValue": "Schema/security metadata and hashes; comparator output lists fact keys and difference types",
+      "recipients": "Operator and local validation process",
+      "enforcingControl": "Exporter contains read queries; comparer performs local reads only and exits nonzero on differences/invalid JSON",
+      "evidence": [
+        "supabase/tests/schema-fingerprint.sql:1",
+        "supabase/tests/schema-fingerprint.sql:3",
+        "supabase/tests/schema-fingerprint.sql:41",
+        "scripts/compare-supabase-schema.mjs:3",
+        "scripts/compare-supabase-schema.mjs:22",
+        "scripts/compare-supabase-schema.mjs:46"
+      ],
+      "missingImpactPrerequisite": "Operator must bind the export to the intended staging project and reviewed revision; metadata equality alone does not prove runtime cloud controls."
+    },
+    {
+      "consumer": "Security gate",
+      "deployment": "GitHub push to main and pull-request CI",
+      "configurationChain": "quality + postgres + browser job results -> always-running security-gate -> three success assertions",
+      "effectiveValue": "Job named Security gate; dependency jobs must all succeed",
+      "recipients": "GitHub check consumers and repository branch rules",
+      "enforcingControl": "Explicit aggregate assertions; contents:read; checkout credentials not persisted",
+      "evidence": [
+        ".github/workflows/ci.yml:3",
+        ".github/workflows/ci.yml:8",
+        ".github/workflows/ci.yml:12",
+        ".github/workflows/ci.yml:17",
+        ".github/workflows/ci.yml:24"
+      ],
+      "documentedClaim": "Protected main must require CI and review, SECURITY.md:41.",
+      "missingImpactPrerequisite": "Hosted rules must require this exact check; no remote branch-protection state was inspected."
+    }
+  ],
+  "resolved_questions": [
+    "A copied signed cookie is no longer sufficient after committed revocation: the shared helper requires active database state. The signature-only proxy is an early filter; representative protected pages run the stronger helper before data reads. Evidence: proxy.ts:98, lib/server/admin-session.ts:12, app/admin/page.tsx:13.",
+    "Logout storage failure does not silently clear the browser cookie or claim confirmed revocation; the route returns 503. Latest source also suppresses audit writes for invalid, missing or previously revoked tokens. Evidence: app/api/admin/logout/route.ts:14, app/api/admin/logout/route.ts:24, lib/server/admin-session.ts:42.",
+    "The PostgreSQL runner uses separate connections and requires an observed lock wait; its concurrency evidence is stronger than parallel promises against PGlite. Test execution results remain the parent's responsibility. Evidence: scripts/test-postgres-concurrency.mjs:30, scripts/test-postgres-concurrency.mjs:96, scripts/test-postgres-concurrency.mjs:119.",
+    "Current schema/session requirements are version 6. README version-5 instructions were stale when inspected; parent reports an update in progress. The historical phase-1 matrix does not describe the new registry. Evidence: README.md:42, docs/security/api-matrix.md:44, supabase/migrations/20260914010000_admin_sessions.sql:56, app/api/health/route.ts:12.",
+    "The aggregate CI job fails unless quality, PostgreSQL and browser jobs all succeed. This source control does not establish that GitHub prohibits merging with a failed gate. Evidence: .github/workflows/ci.yml:12, .github/workflows/ci.yml:24, SECURITY.md:41."
+  ],
+  "openQuestions": [
+    "After pending documentation edits, do setup instructions and phase 2 staging procedures consistently require SQL version 6 and identify the phase 1 matrix as historical?",
+    "Which exact staging Supabase project/revision produced the eventual fingerprint, and are all required migrations, RPC grants and actual HTTP authorization controls verified there?",
+    "Does hosted branch protection require the exact Security gate check and review, with appropriate bypass restrictions?",
+    "Are staging Stripe keys, webhook endpoint and event mode bound to an isolated test account, and have delayed/duplicate provider deliveries and reconciliation-versus-payment races been exercised?",
+    "Does final validation cover payment-versus-reservation-release, overlapping cron runs and multi-item lock ordering beyond the source harness's current scenarios?",
+    "Are production forwarding headers trustworthy and application instances consistently configured with the same current admin credential material?"
+  ],
+  "confirmed_flaws": [],
+  "hypotheses": [
+    {
+      "scenario": "An omitted active-session check on an additional protected entrypoint could allow a copied revoked cookie to pass the signature-only proxy.",
+      "disposition": "Not established: representative pages and API guard enforce the registry; repository search located guards across admin entrypoints. Parent should reconcile against its complete entrypoint inventory.",
+      "evidence": [
+        "proxy.ts:98",
+        "lib/server/admin-page.ts:8",
+        "lib/server/admin-request.ts:7",
+        "app/admin/page.tsx:13"
+      ]
+    },
+    {
+      "scenario": "CI failures could remain mergeable if hosted branch rules do not require Security gate.",
+      "disposition": "External prerequisite unresolved; source aggregate gate is present. No hosted misconfiguration is asserted.",
+      "evidence": [".github/workflows/ci.yml:12", "SECURITY.md:41"]
+    },
+    {
+      "scenario": "Local schema equality could be mistaken for proof of live Supabase/Stripe security or complete distributed-race coverage.",
+      "disposition": "Validation limitation, not a demonstrated vulnerability. Keep cloud controls and untested interleavings explicit.",
+      "evidence": [
+        "supabase/tests/schema-fingerprint.sql:3",
+        "supabase/tests/schema-fingerprint.sql:41",
+        "scripts/test-postgres-concurrency.mjs:173",
+        "supabase/tests/README.md:18"
+      ]
+    }
+  ],
+  "fully_reviewed_files": [
+    "SECURITY.md",
+    "lib/admin-auth.ts",
+    "lib/server/admin-session.ts",
+    "lib/server/admin-page.ts",
+    "lib/server/admin-request.ts",
+    "lib/server/supabase-admin.ts",
+    "lib/server/config.ts",
+    "lib/server/request.ts",
+    "lib/server/rate-limit.ts",
+    "lib/server/stripe.ts",
+    "lib/server/stripe-checkout.ts",
+    "proxy.ts",
+    "app/api/admin/login/route.ts",
+    "app/api/admin/logout/route.ts",
+    "app/api/admin/orders/[id]/refund/route.ts",
+    "app/api/checkout/session/route.ts",
+    "app/api/cron/commerce/route.ts",
+    "app/api/health/route.ts",
+    "app/admin/layout.tsx",
+    "app/admin/page.tsx",
+    "app/admin/[section]/page.tsx",
+    "app/admin/connexion/page.tsx",
+    "supabase/migrations/20260914010000_admin_sessions.sql",
+    "supabase/migrations/20260914000000_notification_upsert.sql",
+    "supabase/tests/platform-contract.sql",
+    "supabase/tests/README.md",
+    "supabase/tests/schema-fingerprint.sql",
+    "scripts/test-postgres-concurrency.mjs",
+    "scripts/compare-supabase-schema.mjs",
+    ".github/workflows/ci.yml"
+  ],
+  "partially_reviewed_files": [
+    "supabase/commerce.sql: targeted reservation, attachment, release, payment, partial/full refund, privilege and session-registry sections",
+    "supabase/migrations/20260911000000_security_v2.sql: reservation and session-attachment overrides",
+    "lib/server/orders.ts: reservation, attachment, release and payment RPC adapters",
+    "app/api/webhooks/stripe/route.ts: signature/mode checks and fulfillment dispatch",
+    "README.md: setup, schema version and validation limitations",
+    "docs/security/api-matrix.md: historical session-revocation statement"
+  ],
+  "review_limits": "Architecture mapping is not completed audit coverage. No external calls, application execution, tests, source edits, scans or delegation occurred. Repository anchors were batch-checked; session/logout/migration anchors were refreshed after the parent's corrective edits."
+}

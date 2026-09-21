@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "chrome-devtools": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\ramia\\.codex\\tools\\chrome-devtools-mcp\\1.9.0\\node_modules\\chrome-devtools-mcp\\build\\src\\bin\\chrome-devtools-mcp.js"
+      ]
+    }
+  }
+}

@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  security-gate:
+    name: Security gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: ${{ always() }}
+    needs: [quality, postgres, browser]
+    steps:
+      - name: Require every validation job to succeed
+        env:
+          QUALITY: ${{ needs.quality.result }}
+          POSTGRES: ${{ needs.postgres.result }}
+          BROWSER: ${{ needs.browser.result }}
+        run: |
+          test "$QUALITY" = success
+          test "$POSTGRES" = success
+          test "$BROWSER" = success
+
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run security:secrets
+      - run: npm audit --audit-level=moderate
+      - run: npm run format:check
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+
+  postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:17.11-bookworm@sha256:051f7b7b3abdd564d5d1bd1e8c4b9c1b6e77087d1dd22020ede611c096a272e0
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: avana_security_test
+        ports: ["127.0.0.1:55432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run test:postgres
+
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - run: npm run test:e2e
+        env:
+          PLAYWRIGHT_PRODUCTION: "true"
+          NEXT_PUBLIC_SITE_URL: http://localhost:3000
