@@ -1,25 +1,41 @@
 # AVANA
 
-A modern e-commerce and operations platform built with Next.js. It includes storefront browsing, secure checkout, customer account flows, traceability and inventory management, email notifications, and an administration dashboard.
+AVANA is a full-stack commerce and operations platform for a traceable product business. The application combines a customer storefront with secure checkout, inventory workflows, customer accounts, traceability, transactional messaging, and a protected administration area.
 
-## Features
+This repository contains the public portfolio version of the project. Production credentials, customer data, payment data, and operational records are intentionally kept outside Git.
 
-- Product catalog and storefront with product filters and cart persistence
-- Stripe-hosted checkout flow with reservation logic and stock management
-- Customer account features with magic-link authentication
-- Admin dashboard for products, orders, stock, reports, and operational workflows
-- Newsletter and transactional email flows
-- Supabase-backed data model and server-side configuration checks
+## Highlights
+
+- Next.js App Router application with TypeScript and React
+- Responsive storefront with search, filtering, product variants, cart persistence, and checkout flows
+- Stripe-hosted payments with server-side validation, stock reservations, webhook processing, refunds, and fulfillment states
+- Supabase-backed catalog, inventory, orders, customer accounts, traceability, documents, and row-level security
+- Magic-link authentication and protected administrative sessions with TOTP support
+- Transactional email, newsletter consent, unsubscribe flows, and operational notifications
+- Inventory, lot, supplier, order, customer, B2B, marketing, and reporting workflows
+- Security-focused API boundaries, rate limiting, input validation, audit logging, and automated checks
+
+## Technology
+
+- Next.js 16
+- React 19
+- TypeScript
+- Supabase and PostgreSQL
+- Stripe
+- Resend
+- Vitest
+- Playwright
+- ESLint and Prettier
 
 ## Requirements
 
 - Node.js 20.9.0 or newer
 - npm
-- A Supabase project
-- A Stripe account for checkout/webhooks
-- A Resend account for transactional emails
+- Supabase for persistent data and authentication
+- Stripe for payment processing
+- Resend for transactional email
 
-## Quick start
+## Local development
 
 ```bash
 npm install
@@ -27,80 +43,54 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000.
+Open [http://localhost:3000](http://localhost:3000) in a browser.
 
-Important: do not commit `.env.local` or any real credentials. Keep all secrets in your host environment or a secrets manager.
+The default example configuration keeps commerce disabled. To enable integrations locally, provide your own development credentials in `.env.local`. Never commit that file or any production credential.
 
-## Environment setup
+## Configuration
 
-Copy the values from `.env.example` and set the required variables in your deployment platform or local `.env.local` file.
+Use `.env.example` as the configuration reference. The application expects environment variables for the site URL, Supabase, administration, Stripe, email delivery, scheduled tasks, and business settings.
 
-Minimum required variables for a working local app:
+Generate strong values for `SESSION_SECRET` and `CRON_SECRET` with a password manager or a local cryptographic tool. Store all real values in the deployment platform's encrypted environment settings.
 
-- `NEXT_PUBLIC_SITE_URL`
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_URL`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `STRIPE_SECRET_KEY`
-- `STRIPE_WEBHOOK_SECRET`
-- `RESEND_API_KEY`
-- `ADMIN_PASSWORD`
-- `ADMIN_TOTP_SECRET`
-- `SESSION_SECRET`
-- `CRON_SECRET`
+The `SUPABASE_SERVICE_ROLE_KEY`, Stripe secret key, webhook secret, email API key, administrator password, TOTP secret, and cron secret must remain server-side. They must never be exposed through a `NEXT_PUBLIC_` variable.
 
-## Production checks
-
-Before shipping, validate the environment with:
+## Commands
 
 ```bash
-npm run readiness:test
-npm run readiness
+npm run dev              # Start the development server
+npm run build            # Create a production build
+npm run start             # Start the production server
+npm run typecheck         # Run TypeScript validation
+npm run lint              # Run ESLint
+npm test                  # Run the unit and security test suite
+npm run test:e2e          # Run browser tests
+npm run security:secrets  # Scan tracked and local project files
+npm run readiness:test    # Validate test-mode configuration
+npm run format:check      # Check formatting
 ```
 
-The test-mode readiness check validates the presence of development/test credentials without exposing secrets. The production check expects your live environment values.
+## Production deployment
 
-## Scripts
+1. Create a Supabase project and apply the SQL in `supabase/commerce.sql` or the required migrations.
+2. Configure Auth redirect URLs for the deployment domain.
+3. Add production environment variables to the hosting provider, never to Git.
+4. Deploy with `NEXT_PUBLIC_COMMERCE_ENABLED=false` while validating the environment.
+5. Configure Stripe webhooks and verify a complete test checkout.
+6. Configure transactional email delivery and domain authentication.
+7. Review the launch checks in the administration area before enabling commerce.
+8. Enable `NEXT_PUBLIC_COMMERCE_ENABLED=true` only after staging validation is complete.
 
-```bash
-npm run dev
-npm run build
-npm run start
-npm run typecheck
-npm run lint
-npm test
-npm run security:secrets
-```
+## Security
 
-## Security notes
+Security is part of the application design. The repository includes protected server routes, database policies, validation, rate limits, signed webhook handling, and automated secret scanning. See [SECURITY.md](SECURITY.md) for the responsible disclosure policy and the SQL documentation in `docs/security/` for deployment considerations.
 
-- Never commit `.env`, `.env.local`, or any generated credentials.
-- Keep service-role keys and webhook secrets only in the deployment environment.
-- Use strong random values for `SESSION_SECRET` and `CRON_SECRET`.
-- Use example/test values in `.env.example` only.
+Do not open issues containing credentials, personal data, private customer information, or production logs. Revoke any credential immediately if it is accidentally exposed.
+
+## Portfolio scope
+
+The public repository is intended to demonstrate architecture, implementation quality, security practices, and product thinking. It does not include production databases, customer records, private documents, payment credentials, or deployment secrets.
 
 ## License
 
-This project is provided as-is for development and deployment. Adjust the licensing terms to match your distribution model before public release.
-npm audit --audit-level=moderate
-```
-
-La CI GitHub exécute aussi le formatage, les types, ESLint, les tests unitaires, la compilation, les tests Playwright sur ordinateur et mobile, la détection de secrets, l’audit des dépendances, des tests PostgreSQL concurrents et CodeQL. Configurer le contrôle **Security gate** comme obligatoire dans les règles de la branche principale ; sa présence dans le workflow ne configure pas à elle seule le blocage des fusions.
-
-Le [rapport de phase 1](SECURITY_HARDENING_2026-09-14.md) conserve l’état initial (141 tests Vitest et 18 tests navigateur). La [phase 2 ciblée](SECURITY_PHASE2_2026-09-14.md) ajoute les tests de révocation admin, la comparaison de schémas et quatre tests PostgreSQL avec connexions indépendantes. La configuration cloud, les migrations SQL jusqu’à la version 6 et les vérifications de staging restent nécessaires ; ces résultats locaux n’autorisent pas à eux seuls une mise en production.
-
-Les tests `tests/security/database-behavior.test.ts` exécutent le SQL réel dans PostgreSQL embarqué (PGlite), avec isolation RLS entre comptes, mutations interdites, transactions de paiement et reprise des webhooks. Les tests de session admin utilisent également ce SQL réel. `npm run test:postgres` exige une instance PostgreSQL locale jetable dédiée et vérifie les verrouillages entre connexions indépendantes. Voir [la préparation, le périmètre et les limites](supabase/tests/README.md) : les politiques déployées, Storage HTTP, Supabase Auth et les interactions Stripe/cron doivent aussi être validés en staging.
-
-## Responsabilités hors code
-
-Le logiciel est prêt à recevoir la configuration de production, mais aucun code ne peut remplacer ces validations humaines :
-
-- identité légale, coordonnées commerciales, prix, stocks, lots et documents réels ;
-- inscription fiscale et configuration des taxes selon les obligations d’AVANA ;
-- conformité des étiquettes, allégations, quantités nettes et informations bilingues ;
-- approbation des politiques de vente, livraison, retours, confidentialité et consentement marketing ;
-- contrats fournisseurs, importation, assurance, transport et procédure de rappel ;
-- ouverture, vérification et financement des comptes Supabase, Stripe, Resend, Vercel et Postes Canada.
-
-Ne publier aucune donnée marquée `Démo` ou `Hypothèse` comme une affirmation réelle. Faire approuver les textes juridiques et réglementaires avant d’accepter des commandes.
+No open-source license has been selected for this project. All rights remain with the project owner unless a separate license is added to the repository.

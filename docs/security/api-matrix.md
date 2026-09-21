@@ -1,6 +1,6 @@
 # AVANA — matrice de sécurité des API
 
-**Archive de phase 1.** Depuis la [phase 2](../../SECURITY_PHASE2_2026-09-14.md), les gardes admin vérifient aussi le registre SQL de sessions révocables. Les constats ci-dessous restent ceux de la revue initiale.
+Revue du code local. Les gardes admin vérifient aussi le registre SQL de sessions révocables. Les constats ci-dessous décrivent les contrôles applicatifs et leurs limites.
 
 Revue du code local, 2026-09-14. Les nombres entre parenthèses représentent les
 **42 fichiers Route Handler**, pas le nombre de méthodes HTTP. Cette matrice

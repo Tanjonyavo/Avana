@@ -79,5 +79,5 @@ node scripts/compare-supabase-schema.mjs docs/security/phase2/local-schema.json 
 Differences or invalid input cause a nonzero exit. The script does not connect
 to a database or apply migrations. PostgreSQL versions and platform-managed
 policies can cause legitimate differences that must be reviewed. Auth settings,
-role memberships and Storage HTTP checks require the
-[staging checklist](../../docs/security/phase2/staging-checklist.md).
+role memberships and Storage HTTP checks require a separate staging review
+before production deployment.

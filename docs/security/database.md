@@ -119,8 +119,8 @@ Une signature n'est pas remplacée par la confiance dans un prix fourni par le c
   dépend des réglages de confirmation et des fournisseurs Auth déployés.
 - La relecture du consentement avant expédition d'une campagne déjà en file a
   été corrigée par l'audit général des notifications et vérifiée par huit tests.
-  Voir le [rapport consolidé](../../SECURITY_HARDENING_2026-09-14.md) pour les
-  limites d'un envoi déjà accepté par le fournisseur.
+  Les limites d'un envoi déjà accepté par le fournisseur doivent être validées
+  dans l'environnement de staging.
 - La politique SQL `is_admin()` autorise explicitement `staff`, `admin`,
   `founder` à lire les données de plusieurs comptes. Cette voie utilise Supabase
   Auth ; elle est distincte du TOTP de l'administration web. Vérifier les comptes
@@ -154,12 +154,10 @@ Commandes exécutées après correction : tests PostgreSQL et suites SQL/paiemen
 (58 réussis), `npm run typecheck`, ESLint ciblé. Le build complet et le rescan
 global sont consolidés dans le rapport général de l'audit.
 
-Outils effectivement utilisés pour ce sous-audit : compétences ECC
-`postgres-patterns` et `backend-patterns`, documentation Next locale,
-PowerShell/ripgrep, Vitest, TypeScript, ESLint, PGlite 0.5.8 et SDK Stripe.
-Docker a été interrogé : CLI présent, moteur arrêté ; aucun service démarré.
-Ni Codex Security distant, ni 42Crunch, ni une base Supabase distante n'ont été
-exécutés par ce sous-audit. Les outils de l'audit général sont rapportés séparément.
+Outils effectivement utilisés pour ce sous-audit : documentation Next locale,
+PowerShell, Vitest, TypeScript, ESLint, PGlite 0.5.8 et SDK Stripe. Docker a
+été interrogé : CLI présent, moteur arrêté ; aucun service démarré. Aucune base
+Supabase distante n'a été contactée par ce sous-audit.
 
 Référence de l'outil embarqué : [documentation PGlite](https://pglite.dev/docs/about)
 et [extension pgcrypto](https://pglite.dev/extensions/#pgcrypto).
